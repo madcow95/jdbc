@@ -52,7 +52,6 @@ public class AdminDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} DBManager.close(con, pstmt);
-		DBManager.close(con, pstmt);
 		return succ;
 	}
 	
