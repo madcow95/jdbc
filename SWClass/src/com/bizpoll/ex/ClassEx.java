@@ -1,16 +1,16 @@
-package com.hel.ex;
+package com.bizpoll.ex;
 
 import java.util.List;
 import java.util.Scanner;
 
-import com.hel.dao.WebDAO;
-import com.hel.dto.WebDTO;
+import com.bizpoll.dao.ClassDAO;
+import com.bizpoll.dto.ClassDTO;
 
-public class WebEx {
+public class ClassEx {
 
 	public static void main(String args[]) {
 		Scanner scan = new Scanner(System.in);
-		WebDAO wDao = new WebDAO();
+		ClassDAO cDao = new ClassDAO();
 		while (true) {
 			System.out.println("====================");
 			System.out.println("Hell's Health 페이지");
@@ -31,14 +31,14 @@ public class WebEx {
 				int select = Integer.valueOf(strSelect);
 				if (select >= 1 && select <= 5) {
 					if (select == 1) {
-						int result = wDao.signin();
+						int result = cDao.signin();
 						if (result > 0) {
 							System.out.println("회원가입 완료!!");
 						} else {
 							System.out.println("회원가입 실패");
 						}
 					} else if (select == 2) {
-						String userId = wDao.login();
+						String userId = cDao.login();
 						if (userId == null) {
 							System.out.println("잘못된 ID / PW입니다.");
 						} else {
@@ -49,20 +49,20 @@ public class WebEx {
 						String userId = scan.nextLine();
 						System.out.print("PW : ");
 						String userPw = scan.nextLine();
-						int result = wDao.update(userId, userPw);
+						int result = cDao.update(userId, userPw);
 						if (result > 0) {
 							System.out.println("정보수정 완료");
 						} else {
-							System.out.println("수정 실패");
+							System.out.println("ID / PW를 확인해주세요");
 						}
 					} else if (select == 4) {
 						System.out.print("ID : ");
 						String selectId = scan.nextLine();
 						System.out.print("PW : ");
 						String selectPw = scan.nextLine();
-						List<WebDTO> webList = wDao.select(selectId, selectPw);
-						if (webList.size() > 0) {
-							for (WebDTO wDto : webList) {
+						List<ClassDTO> classList = cDao.select(selectId, selectPw);
+						if (classList.size() > 0) {
+							for (ClassDTO wDto : classList) {
 								System.out.printf("%s의 정보\n", wDto.getId());
 								System.out.printf("%s %s %s %s %s %s\n",
 										wDto.getId(),
@@ -80,11 +80,11 @@ public class WebEx {
 						String delId = scan.nextLine();
 						System.out.print("비밀번호 입력 : ");
 						String delPw = scan.nextLine();
-						int delResult = wDao.delete(delId, delPw);
+						int delResult = cDao.delete(delId, delPw);
 						if (delResult > 0) {
 							System.out.println("탈퇴완료");
 						} else {
-							System.out.println("탈퇴실패");
+							System.out.println("등록되지 않은 회원입니다.");
 						}
 					}
 				} else {
@@ -92,7 +92,7 @@ public class WebEx {
 				}
 
 			} catch (Exception e) {
-				System.out.println("1 ~ 5의 숫자 또는 종료를위한 q를 입력해주세요");
+				System.out.println("1 ~ 5의 숫자 또는 종료를위한 q만 입력해주세요");
 			}
 
 		}
