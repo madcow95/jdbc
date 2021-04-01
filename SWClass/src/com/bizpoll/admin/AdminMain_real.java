@@ -21,12 +21,12 @@ public class AdminMain_real {
 			String strSelect = scan.nextLine();
 			try {
 				int select = Integer.valueOf(strSelect);
-				if (select >= 1 && select <= 3) {
+				if (select >= 1 && select <= 4) {
 					if (select == 1) {
 						System.out.print("ID 입력 : ");
 						String adminId = scan.nextLine();
 						try {
-							int result = aDao2.checkId(adminId);
+							int result = aDao2.signIn(adminId);
 							
 							if (result > 0) {
 								System.out.println("이미 존재하는 아이디 입니다.");
@@ -51,18 +51,29 @@ public class AdminMain_real {
 							System.out.println("존재하지 않는 회원입니다.");
 						}
 					} else if(select == 3) {
-						aDao2.update();
+						System.out.println("회원정보 수정");
+						System.out.println("===============");
+						System.out.print("회원 ID : ");
+						String updateId = scan.nextLine();
+						System.out.print("회원 PW : ");
+						String updatePw = scan.nextLine();
+						int result = aDao2.update(updateId, updatePw);
+						if(result > 0 || result == -1) {
+							System.out.println("정보 수정 완료");
+						} else {
+							System.out.println("존재하지 않는 회원입니다.");
+						}
 					}
 					else if (select == 4) {
 						System.out.println("시스템 종료");
 						break;
 					}
 				} else {
-					System.out.println("1 ~ 3의 숫자만 입력해주세요");
+					System.out.println("1 ~ 4의 숫자만 입력해주세요");
 				}
 
 			} catch (Exception e) {
-				System.out.println("1 ~ 3의 숫자만 입력해주세요");
+				System.out.println("1 ~ 4의 숫자만 입력해주세요");
 			}
 
 		}

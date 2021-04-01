@@ -27,8 +27,8 @@ public class AdminDAO_real {
 		scan = new Scanner(System.in);
 	}
 
-	public int checkId(String adminId) {
-		
+	public int signIn(String adminId) {
+
 		aDto = new AdminDTO();
 		aDto.setId(adminId);
 		con = DBManager.getConnection();
@@ -51,7 +51,6 @@ public class AdminDAO_real {
 
 			e.printStackTrace();
 		}
-		DBManager.close(con, pstmt, rs);
 		if (adminList.size() > 0) {
 			return adminList.size();
 		} else {
@@ -109,30 +108,114 @@ public class AdminDAO_real {
 		DBManager.close(con, pstmt, rs);
 		return adminList;
 	}
-	
-	public void update() {
-		System.out.println("=============");
-		System.out.println("1. 비밀번호 변경");
-		System.out.println("2. 번호 변경");
-		System.out.println("3. 이름 변경");
-		System.out.println("4. 변경 완료");
-		System.out.println("=============");
-		System.out.print("입력 >> ");
-		String strSelect = scan.nextLine();
-		
-		int select = Integer.valueOf(strSelect);
-		if(select >= 1 && select <= 4) {
-			if(select == 1) {
-				System.out.println("비밀번호 변경");
-				System.out.println("=============");
-				con = DBManager.getConnection();
-				
-				String sql = "UPDATE admin " + 
-						"SET pw = ? " + 
-						"WHERE id = ? " + 
-						"AND pw = ?";
+
+	public int update(String adminId, String adminPw) {
+		aDto = new AdminDTO();
+		aDto.setId(adminId);
+		con = DBManager.getConnection();
+		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ? AND pw = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, adminId);
+			pstmt.setString(2, adminPw);
+			rs = pstmt.executeQuery();
+			adminList = new ArrayList<AdminDTO>();
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String phone = rs.getString("phone");
+
+				AdminDTO aDto = new AdminDTO(id, pw, name, phone);
+				adminList.add(aDto);
 			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
 		}
+		DBManager.close(con, pstmt, rs);
+		if (adminList.size() > 0) {
+			System.out.println("=============");
+			System.out.println("1. 비밀번호 변경");
+			System.out.println("2. 전화번호 변경");
+			System.out.println("3. 이름 변경");
+			System.out.println("4. 변경 완료");
+			System.out.println("=============");
+			System.out.print("입력 >> ");
+			String strSelect = scan.nextLine();
+
+			int select = Integer.valueOf(strSelect);
+			while (true) {
+				if (select >= 1 && select <= 4) {
+					if (select == 1) {
+						System.out.println("비밀번호 변경");
+						System.out.println("=============");
+						System.out.print("변경할 PW : ");
+						String changePw = scan.nextLine();
+						con = DBManager.getConnection();
+
+						String sql2 = "UPDATE admin " + "SET pw = ? " + "WHERE id = ? " + "AND pw = ?";
+						int succ = 0;
+						try {
+							pstmt = con.prepareStatement(sql2);
+							pstmt.setString(1, changePw);
+							pstmt.setString(2, adminId);
+							pstmt.setString(3, adminPw);
+
+							succ = pstmt.executeUpdate();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						return succ;
+					} else if (select == 2) {
+						System.out.println("전화번호 변경");
+						System.out.println("=============");
+						System.out.print("변경할 번호 : ");
+						String ChangePhone = scan.nextLine();
+						con = DBManager.getConnection();
+
+						String sql2 = "UPDATE admin SET phone = ? WHERE id = ? AND pw = ?";
+						int succ = 0;
+						try {
+							pstmt = con.prepareStatement(sql2);
+							pstmt.setString(1, ChangePhone);
+							pstmt.setString(2, adminId);
+							pstmt.setString(3, adminPw);
+							succ = pstmt.executeUpdate();
+						} catch (Exception e) {
+
+						}
+						return succ;
+					} else if (select == 3) {
+						System.out.println("이름 변경");
+						System.out.println("=============");
+						System.out.print("변경할 이름 : ");
+						String changeName = scan.nextLine();
+						con = DBManager.getConnection();
+
+						String sql2 = "UPDATE admin SET name = ? WHERE id = ? AND pw = ?";
+						int succ = 0;
+						try {
+
+							pstmt = con.prepareStatement(sql2);
+							pstmt.setString(1, changeName);
+							pstmt.setString(2, adminId);
+							pstmt.setString(3, adminPw);
+							succ = pstmt.executeUpdate();
+						} catch (Exception e) {
+
+						}
+						return succ;
+					} else if (select == 4) {
+						break;
+					}
+				} else {
+					System.out.println("1 ~ 4의 숫자만 입력하세요");
+				}
+			}DBManager.close(con, pstmt);
+			return -1;
+		}
+		return 0;
 	}
 
 }
