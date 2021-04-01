@@ -31,7 +31,9 @@ public class AdminDAO_real {
 	public int signIn(String adminId) {
 		aDto = new AdminDTO();
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM admin " + "WHERE   id = ?";
+		String sql = "SELECT  * "
+					+ "FROM admin WHERE "
+					+ "id = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, adminId);
@@ -81,7 +83,9 @@ public class AdminDAO_real {
 
 	public List<AdminDTO> login(String id, String pw) {
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM admin " + "WHERE id = ? AND pw = ?";
+		String sql = "SELECT  * "
+					+ "FROM admin "
+					+ "WHERE id = ? AND pw = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -103,7 +107,9 @@ public class AdminDAO_real {
 
 	public int update(String adminId, String adminPw) {
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM admin " + "WHERE id = ? AND pw = ?";
+		String sql = "SELECT  * "
+				+ "FROM admin "
+				+ "WHERE id = ? AND pw = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, adminId);
@@ -139,7 +145,9 @@ public class AdminDAO_real {
 						String changePw = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin " + "SET pw = ? " + "WHERE id = ? AND pw = ?";
+						String sql2 = "UPDATE admin "
+								+ "SET pw = ? "
+								+ "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
 							pstmt = con.prepareStatement(sql2);
@@ -159,7 +167,9 @@ public class AdminDAO_real {
 						String ChangePhone = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin " + "SET phone = ? " + "WHERE id = ? AND pw = ?";
+						String sql2 = "UPDATE admin "
+								+ "SET phone = ? "
+								+ "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
 							pstmt = con.prepareStatement(sql2);
@@ -178,7 +188,9 @@ public class AdminDAO_real {
 						String changeName = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin " + "SET name = ? " + "WHERE id = ? AND pw = ?";
+						String sql2 = "UPDATE admin "
+									+ "SET name = ? "
+									+ "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
 							pstmt = con.prepareStatement(sql2);
@@ -206,7 +218,9 @@ public class AdminDAO_real {
 	public List<AdminDTO> adminList(String adminId, String adminPw) {
 		con = DBManager.getConnection();
 
-		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ? AND pw = ?";
+		String sql = "SELECT  * "
+					+ "FROM admin WHERE "
+					+ "id = ? AND pw = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, adminId);
@@ -230,7 +244,8 @@ public class AdminDAO_real {
 
 	public int delete(String delId, String delPw) {
 		con = DBManager.getConnection();
-		String sql = "DELETE FROM admin " + "WHERE id = ? AND pw = ?";
+		String sql = "DELETE FROM admin "
+					+ "WHERE id = ? AND pw = ?";
 		int succ = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
