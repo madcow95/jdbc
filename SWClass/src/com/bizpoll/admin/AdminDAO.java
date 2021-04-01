@@ -51,7 +51,9 @@ public class AdminDAO {
 			succ = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} DBManager.close(con, pstmt);
+		} finally{
+			DBManager.close(con, pstmt);
+		}
 		return succ;
 	}
 	
@@ -80,8 +82,9 @@ public class AdminDAO {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, rs);
 		}
-		DBManager.close(con, pstmt, rs);
 		return adminList;
 	}
 	
@@ -109,8 +112,41 @@ public class AdminDAO {
 		} catch (Exception e) {
 			
 		}
-		DBManager.close(con, pstmt, rs);
+		finally{
+			DBManager.close(con, pstmt, rs);
+		}
 		return adminList;
+	}
+	
+	public boolean adminICheck(String id) {
+		int resultCnt = 0;
+		boolean useYN = false;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(name) "
+				   + "FROM admin "
+				   + "WHERE id = ?";
+		try {
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				resultCnt = rs.getInt("count(name)");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+		if (resultCnt == 0) {
+			useYN = true;
+		} 
+		return useYN;
 	}
 
 }

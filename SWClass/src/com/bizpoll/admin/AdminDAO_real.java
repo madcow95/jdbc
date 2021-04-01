@@ -14,25 +14,24 @@ import com.bizpoll.common.DBManager;
  * admin 등록
  * 아이디 체크
  * 로그인
+ * 관리자 목록
  */
 public class AdminDAO_real {
-	AdminDTO aDto;
-	Connection con;
-	PreparedStatement pstmt;
-	Scanner scan;
-	ResultSet rs;
-	List<AdminDTO> adminList;
+	private AdminDTO aDto;
+	private Connection con;
+	private PreparedStatement pstmt;
+	private Scanner scan;
+	private ResultSet rs;
+	private List<AdminDTO> adminList;
 
 	public AdminDAO_real() {
 		scan = new Scanner(System.in);
 	}
 
 	public int signIn(String adminId) {
-
 		aDto = new AdminDTO();
-		aDto.setId(adminId);
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ?";
+		String sql = "SELECT  * " + "FROM admin " + "WHERE   id = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, adminId);
@@ -40,15 +39,12 @@ public class AdminDAO_real {
 			adminList = new ArrayList<AdminDTO>();
 			while (rs.next()) {
 				String id = rs.getString("id");
-				String pw = rs.getString("pw");
-				String name = rs.getString("name");
-				String phone = rs.getString("phone");
 
-				AdminDTO aDto = new AdminDTO(id, pw, name, phone);
+				AdminDTO aDto = new AdminDTO();
+				aDto.setId(id);
 				adminList.add(aDto);
 			}
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		if (adminList.size() > 0) {
@@ -65,11 +61,11 @@ public class AdminDAO_real {
 
 			aDto = new AdminDTO(adminId, pw, name, phone);
 			con = DBManager.getConnection();
-			String sql2 = "INSERT INTO admin VALUES(?, ?, ?, ?)";
 			int succ = 0;
+			String sql2 = "INSERT INTO admin VALUES(?, ?, ?, ?)";
 			try {
 				pstmt = con.prepareStatement(sql2);
-				pstmt.setString(1, aDto.getId());
+				pstmt.setString(1, adminId);
 				pstmt.setString(2, aDto.getPw());
 				pstmt.setString(3, aDto.getName());
 				pstmt.setString(4, aDto.getPhone());
@@ -84,15 +80,12 @@ public class AdminDAO_real {
 	}
 
 	public List<AdminDTO> login(String id, String pw) {
-		aDto = new AdminDTO();
-		aDto.setId(id);
-		aDto.setPw(pw);
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ? AND pw = ?";
+		String sql = "SELECT  * " + "FROM admin " + "WHERE id = ? AND pw = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, aDto.getId());
-			pstmt.setString(2, aDto.getPw());
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
 			rs = pstmt.executeQuery();
 			adminList = new ArrayList<AdminDTO>();
 			while (rs.next()) {
@@ -101,7 +94,6 @@ public class AdminDAO_real {
 				aDto.setName(name);
 				adminList.add(aDto);
 			}
-
 		} catch (Exception e) {
 
 		}
@@ -110,10 +102,8 @@ public class AdminDAO_real {
 	}
 
 	public int update(String adminId, String adminPw) {
-		aDto = new AdminDTO();
-		aDto.setId(adminId);
 		con = DBManager.getConnection();
-		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ? AND pw = ?";
+		String sql = "SELECT  * " + "FROM admin " + "WHERE id = ? AND pw = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, adminId);
@@ -122,15 +112,11 @@ public class AdminDAO_real {
 			adminList = new ArrayList<AdminDTO>();
 			while (rs.next()) {
 				String id = rs.getString("id");
-				String pw = rs.getString("pw");
-				String name = rs.getString("name");
-				String phone = rs.getString("phone");
-
-				AdminDTO aDto = new AdminDTO(id, pw, name, phone);
+				AdminDTO aDto = new AdminDTO();
+				aDto.setId(id);
 				adminList.add(aDto);
 			}
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		DBManager.close(con, pstmt, rs);
@@ -143,7 +129,6 @@ public class AdminDAO_real {
 			System.out.println("=============");
 			System.out.print("입력 >> ");
 			String strSelect = scan.nextLine();
-
 			int select = Integer.valueOf(strSelect);
 			while (true) {
 				if (select >= 1 && select <= 4) {
@@ -154,7 +139,7 @@ public class AdminDAO_real {
 						String changePw = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin " + "SET pw = ? " + "WHERE id = ? " + "AND pw = ?";
+						String sql2 = "UPDATE admin " + "SET pw = ? " + "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
 							pstmt = con.prepareStatement(sql2);
@@ -174,7 +159,7 @@ public class AdminDAO_real {
 						String ChangePhone = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin SET phone = ? WHERE id = ? AND pw = ?";
+						String sql2 = "UPDATE admin " + "SET phone = ? " + "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
 							pstmt = con.prepareStatement(sql2);
@@ -193,10 +178,9 @@ public class AdminDAO_real {
 						String changeName = scan.nextLine();
 						con = DBManager.getConnection();
 
-						String sql2 = "UPDATE admin SET name = ? WHERE id = ? AND pw = ?";
+						String sql2 = "UPDATE admin " + "SET name = ? " + "WHERE id = ? AND pw = ?";
 						int succ = 0;
 						try {
-
 							pstmt = con.prepareStatement(sql2);
 							pstmt.setString(1, changeName);
 							pstmt.setString(2, adminId);
@@ -212,10 +196,53 @@ public class AdminDAO_real {
 				} else {
 					System.out.println("1 ~ 4의 숫자만 입력하세요");
 				}
-			}DBManager.close(con, pstmt);
-			return -1;
+				return 1;
+			}
 		}
+		DBManager.close(con, pstmt);
 		return 0;
+	}
+
+	public List<AdminDTO> adminList(String adminId, String adminPw) {
+		con = DBManager.getConnection();
+
+		String sql = "SELECT  * " + "FROM    admin " + "WHERE   id = ? AND pw = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, adminId);
+			pstmt.setString(2, adminPw);
+			rs = pstmt.executeQuery();
+			adminList = new ArrayList<AdminDTO>();
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String phone = rs.getString("phone");
+				AdminDTO aDto = new AdminDTO(id, pw, name, phone);
+				adminList.add(aDto);
+			}
+		} catch (Exception e) {
+
+		}
+		DBManager.close(con, pstmt, rs);
+		return adminList;
+	}
+
+	public int delete(String delId, String delPw) {
+		con = DBManager.getConnection();
+		String sql = "DELETE FROM admin " + "WHERE id = ? AND pw = ?";
+		int succ = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delId);
+			pstmt.setString(2, delPw);
+			succ = pstmt.executeUpdate();
+		} catch (Exception e) {
+
+		} finally {
+			DBManager.close(con, pstmt);
+		}
+		return succ;
 	}
 
 }
