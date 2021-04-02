@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DBManager {
 	private static Connection con;
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@220.93.161.202:1521:xe";
+	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "scott";
 	private static final String PW = "1234";
 	
