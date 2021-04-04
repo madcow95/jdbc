@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>홈페이지 이름</title>
 </head>
 <body>
+안녕하세요 최광웁니다
 </body>
 </html>

@@ -10,18 +10,20 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		List<DTO> adminList = new ArrayList<DTO>();
 		while (true) {
-
 			System.out.println("===============");
 			System.out.println("1. 관리자 등록");
 			System.out.println("2. 관리자 로그인");
 			System.out.println("3. 관리자 목록");
-			System.out.println("4. 시스템 종료");
+			System.out.println("4. 관리자 정보수정");
+			System.out.println("5. 회원 검색");
+			System.out.println("6. 회원 탈퇴");
+			System.out.println("7. 시스템 종료");
 			System.out.println("===============");
 			System.out.print("입력 >> ");
 			String strSelect = scan.nextLine();
 			int select = Integer.valueOf(strSelect);
 			DAO dao = new DAO();
-			if (select >= 1 && select <= 4) {
+			if (select >= 1 && select <= 7) {
 				if (select == 1) {
 					System.out.println("관리자 등록");
 					System.out.println("==================");
@@ -66,11 +68,45 @@ public class Main {
 						System.out.println("회원 목록이 비어있습니다");
 					}
 				} else if (select == 4) {
+					System.out.println("정보수정");
+					System.out.println("=============");
+					System.out.print("회원ID : ");
+					String updateId = scan.nextLine();
+					System.out.print("회원PW : ");
+					String updatePw = scan.nextLine();
+					int result = dao.update(updateId, updatePw);
+					if(result > 0) {
+						System.out.println("수정이 완료되었습니다.");
+					} else {
+						System.out.println("존재하지 않는 회원입니다.");
+					}
+				} else if (select == 5){
+					System.out.println("회원 검색");
+					System.out.println("=============");
+					System.out.print("이름 : ");
+					String searchUser = scan.nextLine();
+					int result = dao.search(searchUser);
+					System.out.printf("검색결과가 %d건 있습니다\n",
+								result);
+				} else if (select == 6){
+					System.out.println("회원 탈퇴");
+					System.out.println("==============");
+					System.out.print("ID : ");
+					String deleteId = scan.nextLine();
+					System.out.print("PW : ");
+					String deletePw = scan.nextLine();
+					boolean bYes = dao.delete(deleteId, deletePw);
+					if (bYes == true) {
+						System.out.println("회원 탈퇴 완료");
+					} else {
+						System.out.println("존재하지 않는 회원입니다.");
+					}
+				} else if (select == 7) {
 					System.out.println("시스템 종료");
 					break;
 				}
 			} else {
-				System.out.println("1 ~ 4의 숫자만 입력하세요");
+				System.out.println("1 ~ 7의 숫자만 입력하세요");
 			}
 		}
 	}
