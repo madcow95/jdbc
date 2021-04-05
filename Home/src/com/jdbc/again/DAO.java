@@ -13,11 +13,11 @@ public class DAO {
 	/*
 	 * admin 등록 아이디 체크 로그인 관리자 목록
 	 */
-	PreparedStatement pstmt = null;
-	Connection con = null;
-	ResultSet rs = null;
-	Scanner scan;
-	List<DTO> adminList;
+	private PreparedStatement pstmt = null;
+	private Connection con = null;
+	private ResultSet rs = null;
+	private Scanner scan;
+	private List<DTO> adminList;
 	public DAO() {
 		scan = new Scanner(System.in);
 	}
