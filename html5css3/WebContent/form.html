@@ -7,7 +7,34 @@
 <body>
 	<form action="#" method="get" name="frm">
 		이름 : <input type="text" name="irum"><br>
-		ID : <input type="text" name="uid">
+		ID : <input type="text" name="uid"><br>
+		PW : <input type="text" name="upw"><br>
+		tel : <input type="text" name="uphone1" maxlength="3" size="3"> -
+			  <input type="text" name="uphone2" maxlength="4" size="4"> -
+			  <input type="text" name="uphone3" maxlength="4" size="4"><br>
+		photo : <input type="file" name="upic"><br>
+		gender : <input type="radio" name="gender" value="M">남성
+			   <input type="radio" name="gender" value="F">여성<br>
+		사용언어 : <input type="checkbox" name="language" value="kor" checked="checked">한글
+				   <input type="checkbox" name="language" value="eng">영어
+				   <input type="checkbox" name="language" value="jap">일본어
+				   <input type="checkbox" name="language" value="chi">중국어<br>
+		자기소개 : <textarea rows="5" cols="20">100자 이내로</textarea><br> 
+		국적 :  <select>
+					<option>korea</option>
+					<option>usa</option>
+					<option>japan</option>
+					<option>china</option>
+				</select><br>
+		좋아하는 음식 : 
+				<select multiple="multiple">
+					<option>김치</option>
+					<option>불고기</option>
+					<option>파전</option>
+					<option>비빔밥</option>
+				</select><br>
+		<input type="submit" value="회원가입">	
 	</form>
+	
 </body>
 </html>

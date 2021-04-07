@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상태 선택자</title>
+<style type="text/css">
+	input:focus{ /* focus : focus가 어디에 가있다. 마우스를 클릭하면 모양이 바뀌는 그런거? */
+		border: 2px solid #ff0000;
+		padding: 10px; /* 경계선 안쪽 요소를 변경 x픽셀만큼 */
+	}
+	
+	input:enabled { /* 경계선 안쪽의 글자 변경 */
+		color: #00ff00;
+		font-weight: bold;
+	}
+	
+	input:disabled {
+		color: #ff0000;
+	}
+	
+	#content{
+		width: 300px;
+	}
+	
+	ul li{
+		border: 1px solid #cccccc;
+		padding: 10px;
+		list-style: none; /* list-style쓰면 ul의 앞에 점을 변경 */
+	}
+	
+	ul li:first-of-type {
+		border-radius: 10px 10px 0 0;
+	}
+	
+	ul li:last-of-type {
+		border-radius: 0 0 10px 10px;
+	}
+
+</style>
+</head>
+<body>
+	<div>
+		<form action="#">
+			이름 : <input type="text" name="irum"><br>
+			ID : <input type="text" name="uid"><br>
+			PW : <input type="password" name="upw" value="12345" disabled="disabled"><br> <!-- disabled : 수정불가 -->
+		</form>
+	</div>
+	<hr>
+	<div id="content">
+		<ul>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+			<li><a href="#">menu1</a></li>
+		</ul>
+	</div>
+<hr>	
+	<table border=1>
+		<tr> <!-- tr : 행 -->
+			<td>국어</td> <!-- td : 열 -->
+			<td>영어</td>
+			<td>수학</td>
+		</tr>
+		<tr>
+			<td>45</td>
+			<td>35</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<!-- 열 병합 -->
+			<td colspan="2">평균</td>
+			<td>25</td>
+		</tr>
+	</table>
+</body>
+</html>
