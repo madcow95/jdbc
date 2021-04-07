@@ -64,8 +64,8 @@
 <hr>
 
 	<table border="1">
-		<tr>
-			<td>국어</td>
+		<tr> <!-- tr : 행 -->
+			<td>국어</td> <!-- td : 열 -->
 			<td>영어</td>
 			<td>수학</td>
 		</tr>
@@ -75,9 +75,59 @@
 			<td>25</td>
 		</tr>
 		<tr>
+			<!-- 열 병합 -->
 			<td colspan="2">평균</td>
 			<td>25</td>
 		</tr>
 	</table>
+	<table border="1">
+		<tr>
+			<td rowspan="4">중간 고사 성적</td>
+		</tr>
+		<tr> <!-- tr : 행 -->
+			<td>국어</td> <!-- td : 열 -->
+			<td>영어</td>
+			<td>수학</td>
+		</tr>
+		<tr>
+			<td>45</td>
+			<td>35</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<!-- 열 병합 -->
+			<td colspan="2">평균</td>
+			<td>25</td>
+		</tr>
+	</table>
+<hr>
+	<!-- 이미지 업로드 -->
+	<p><img alt="html5_logo" src="photos/unnamed.png" width=100 height=100></p>
+	<p><img alt="firefox_logo" src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png" width=100 height=100></p>
+<hr>
+	<!-- 음원 업로드 -->
+	<audio src="audios/music.mp3" controls="controls" autoplay="autoplay"></audio>
+<hr>
+	<table border="1">
+		<tr>
+			<td>
+				<h1>주간 히트 노래</h1>
+				<hr>
+				<ol>   											<!-- href="#" : 야매표시, 자기 자신을 봐라 -->
+					<li><img alt="1" src="photos/a1.png" height=50 width=50><a href="#aaa">어머 누구니</a></li>
+					<li><img alt="2" src="photos/a2.png" height=50 width=50><a href="#aaa">한번 더</a></li>
+					<li><img alt="3" src="photos/a3.png" height=50 width=50><a href="#aaa">다른 남자</a></li>
+					<li><img alt="4" src="photos/a4.png" height=50 width=50><a href="#aaa">무슨말인거지</a></li>
+					<li><img alt="5" src="photos/a5.png" height=50 width=50><a href="#aaa">뭐하는거지</a></li>
+				</ol>
+				<p><play><audio src="audios/music.mp3" controls="controls" autoplay="autoplay"></audio></play></p>
+			</td>
+		</tr>
+	</table>	
+<hr>
+	<!-- 영상 업로드 -->
+	<video src="videos/video.mp4" controls="controls" height=300 width=500></video>
+<hr>
+	
 </body>
 </html>
