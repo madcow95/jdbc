@@ -1,1 +1,28 @@
 @charset "UTF-8";
+
+/* 기본 색상 */
+:root { 
+	--main-color:#5D9AB2;
+	--accent-color:#BF6A7A;
+	--dark-main-color:#2B5566;
+	--text-bright-color:#fff;
+	  }
+ 
+ body {
+ 	margin: 0;
+ 	font-family: '맑은 고딕', 'Apple SD Gothic Neo', 'sans-serif';
+ 	}
+
+.conA {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	min-height: 450px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(images/포스터01.jpg);
+	background-position: center;
+	background-size: cover;
+	color: #fff;
+	color: var(--text-bright-color);
+	text-align: center;
+	} 	
