@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.container {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 30px 10px;
+}
+
+.container .photoA {
+	min-height: 150px;
+	background-position: center;
+	background-size: cover;
+}
+
+.container .photoB {
+	min-height: 150px;
+	background-position: center;
+	background-size: cover;
+}
+
+@media (min-width:768px) {
+	.photoA {
+		display: flex;
+		max-width: 100%;
+	}
+	
+	.photoB {
+		display: flex;
+		max-width: 100%;
+	}
+}
