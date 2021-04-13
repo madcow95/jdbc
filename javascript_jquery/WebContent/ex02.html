@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/myscript.js">
+	//function cal() {
+		/* alert는 디버깅용으로도 사용가능하다.
+		 alert("계산ㄱ"); */
+		/* var x = parseInt(document.getElementById("x").value);
+		var y = parseInt(document.getElementById("y").value);
+		var sum = x + y; /* 단위 테스트 */
+		
+		/* document.getElementById("sum").value = sum; */
+		
+		/* var firstNum = document.frm.firstNum.value;
+		var secondNum = document.frm.secondNum.value;
+		var sum = parseInt(firstNum) + parseInt(secondNum);
+		
+		document.frm.sum.value = sum; */
+	//}
+</script>
+</head>
+<body>
+	<!-- 두개만 더할수 있는 계산기 -->
+	<h3>덧셈 계산기</h3>
+	<form action="#" method="post" name="frm">
+		첫번째 정수 : <input id="x" name="firstNum"><br>
+		두번째 정수 : <input id="y" name="secondNum"><br> <!-- id 대신 name써도 괜찮다. -->
+		<input type="button" value="계산" onclick="cal()"><br> <!-- <a>도 가능은하지만(동적으로) 이거보단 어려울듯 -->
+		합계 : <input id="sum" name="sum" readonly="readonly"><br>
+	</form>
+	
+	<h1 id="test">This is a heading.</h1>
+	<script type="text/javascript">
+		function func() {
+			e = document.getElementById("test"); /* e는 변수선언 안해도 되네? */
+			e.style.color = "red";
+		}
+		
+		function func1() {
+			e = document.getElementById("test");
+			e.style.color = "black";
+		}
+	</script>
+	<button type="button" onclick="func();">글자색 변경</button>
+	<button type="button" onclick="func1();">원상복귀</button>
+</body>
+</html>
