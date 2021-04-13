@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function plus() {
+		var x = document.getElementById("text1").value;
+		var y = document.getElementById("text2").value;
+		
+		var sum = parseInt(x) + parseInt(y);
+		document.getElementById("result").value = sum;
+	}
+	
+	function minus() {
+		var x, y;
+		var minus;
+		
+		x = document.getElementById("text1").value;
+		y = document.getElementById("text2").value;
+		
+		minus = parseInt(x) - parseInt(y);
+		document.getElementById("result").value = minus;
+	}
+	
+	function gop() {
+		var x, y;
+		var gop;
+		
+		x = document.getElementById("text1").value;
+		y = document.getElementById("text2").value;
+		
+		gop = parseInt(x) * parseInt(y);
+		document.getElementById("result").value = gop;
+	}
+	
+	function nano() {
+		var x, y;
+		var nano;
+		
+		x = document.getElementById("text1").value;
+		y = document.getElementById("text2").value;
+		
+		nano = parseInt(x) / parseInt(y);
+		document.getElementById("result").value = nano;
+	}
+</script>
+</head>
+<body>
+	<form action="#" method="post" name="frm">
+		첫번째 숫자 : <input id="text1" name="firstNum"><br>
+		두번째 숫자 : <input id="text2" name="SecondNum"><br>
+		<input type="button" value="더하기" onclick="plus()">
+		<input type="button" value="빼기" onclick="minus()">
+		<input type="button" value="곱하기" onclick="gop()">
+		<input type="button" value="나누기" onclick="nano()"><br>
+		결과 : <input id="result" name="result" readonly="readonly"><br>
+	</form>	
+</body>
+</html>

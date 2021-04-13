@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function gop() {
+		var x = document.frm.firstNum.value;
+		var y = document.frm.SecondNum.value;
+		
+		var sum = parseInt(x) * parseInt(y);
+		document.frm.result.value = sum;
+	}
+</script>
+</head>
+<body>
+<form action="#" method="post" name="frm">
+		첫번째 숫자 : <input id="text1" name="firstNum"><br>
+		두번째 숫자 : <input id="text2" name="SecondNum"><br>
+		<input type="button" value="더하기" onclick="plus()">
+		<input type="button" value="빼기" onclick="minus()">
+		<input type="button" value="곱하기" onclick="gop()">
+		<input type="button" value="나누기" onclick="nano()"><br>
+		결과 : <input id="result" name="result" readonly="readonly"><br>
+	</form>	
+</body>
+</html>
