@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function func() {
+		var notNum = /^[0-9]+$/;
+		var phone = document.register.phone.value;
+		if(phone.match(notNum) == null) {
+			document.getElementById("msg").style.color = "red";
+			document.getElementById("msg").textContent = "숫자만입력";
+			return false;
+		}
+		if (phone.length == 11) {
+			if(phone.match(notNum) == null) {
+				document.getElementById("msg").style.color = "red";
+				document.getElementById("msg").textContent = "숫자만입력";
+				return false;
+			}
+			return true;
+		} else {
+			alert("전화번호 형식이 올바르지 않다.");
+			return false;
+		}
+		return true;
+	}
+</script>
+</head>
+<body>
+	<form action="ex_form.html" name="register" method="post" onsubmit="return func();"> 
+		전화번호 : <input type="text" id="phone" name="phone" maxlength="11"><span id="msg"></span><br>
+		<input type="submit" value="제출"> 
+	</form>
+</body>
+</html>

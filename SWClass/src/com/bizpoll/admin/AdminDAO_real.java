@@ -75,8 +75,9 @@ public class AdminDAO_real {
 				succ = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				DBManager.close(con, pstmt);
 			}
-			DBManager.close(con, pstmt);
 			return 0;
 		}
 	}
@@ -100,8 +101,9 @@ public class AdminDAO_real {
 			}
 		} catch (Exception e) {
 
+		} finally {
+			DBManager.close(con, pstmt, rs);
 		}
-		DBManager.close(con, pstmt, rs);
 		return adminList;
 	}
 
@@ -125,7 +127,6 @@ public class AdminDAO_real {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DBManager.close(con, pstmt, rs);
 		if (adminList.size() > 0) {
 			System.out.println("=============");
 			System.out.println("1. 비밀번호 변경");

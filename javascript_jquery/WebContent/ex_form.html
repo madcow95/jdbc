@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function registerCheck() {
+		var frm = document.register;
+		var min = 6;
+		var max = 8;
+		if (frm.irum.value.length == 0) {
+			alert("필수 입력 사항입니다.");
+			frm.irum.focus();
+			return false;
+		} 
+		
+		if(frm.id.value.length < min || frm.id.value.length > max) {
+			alert(min + "글자와 " + max + "글자 사이로 입력해 주세요.");
+			return false;
+		}
+		var notNum = /^[0-9]+$/; /* /^ : 문자열시작 , [0-9] : 0부터 9까지 숫자 , + : 연속된 숫자 , $/ : 문자열 끝 */
+		var num = frm.phone.value;
+		if (num.match(notNum) == null) {
+			document.getElementById("msg").style.fontWeight = "bold";
+			document.getElementById("msg").style.color = "red";
+			document.getElementById("msg").textContent = "문자들었다";
+			return false;
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<h3 id="head">회원가입</h3>				<!-- onsubmit의 입력값이 true면 넘어가고 false면 넘어가지 않는다 -->
+	<form action="ex07.html" name="register" method="post" onsubmit="return registerCheck();"> <!-- action에 도착할 장소 -->
+		이름 : <input type="text" id="irum" name="irum">필수<br>
+		주소 : <input type="text" id="addr" name="addr"><br>
+		생일 : <input type="date" id="birth" name="birth"><br>
+		아이디(6 ~ 8 글자) : <input type="text" id="id" name="userid"><br>
+		이메일 : <input type="email" id="email" name="email"><br>
+		휴대폰 : <input type="tel" id="phone" name="phone" maxlength="11"><span id="msg"></span><br>
+		<input type="text" id="colorchange"><br>
+		<input type="button" id="change" value="변환" onclick="changeColor();">
+		<input type="submit" value="확인">
+	</form>
+</body>
+</html>
