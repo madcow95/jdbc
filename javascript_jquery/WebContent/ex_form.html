@@ -13,12 +13,14 @@
 			frm.irum.focus();
 			return false;
 		} 
-		
-		if(frm.id.value.length < min || frm.id.value.length > max) {
+		var compare = frm.id.value.length;
+		if(compare < min || compare > max) {
 			alert(min + "글자와 " + max + "글자 사이로 입력해 주세요.");
+			document.register.id.focus();
 			return false;
 		}
-		var notNum = /^[0-9]+$/; /* /^ : 문자열시작 , [0-9] : 0부터 9까지 숫자 , + : 연속된 숫자 , $/ : 문자열 끝 */
+		var notNum = /^[0-9]+$/; /* /^ : 문자열시작 , [0-9] : 0부터 9까지 숫자 , + : 연속된 숫자 , $/ : 문자열 끝 */ 
+		/* var x = /^[a-zA-Z0-9_]+$/; */
 		var num = frm.phone.value;
 		if (num.match(notNum) == null) {
 			document.getElementById("msg").style.fontWeight = "bold";
