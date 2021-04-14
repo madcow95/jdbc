@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function changeColor(color) {
+		document.getElementById("target").style.backgroundColor = color;
+	}
+	
+	function changeColor1() {
+		color = document.frm.change.value;
+		document.getElementById("target").style.backgroundColor = color;
+	}
+</script>
+</head>
+<body id="target">
+	<form action="#" name="frm" method="post">
+		<h1 id="head">색을 변환시키세요.</h1>
+		<input type="button" name="c1" value="파란색" onclick="changeColor('lightblue')">
+		<input type="radio" name="c2" value="v2" onclick="changeColor('lightgreen')">녹색
+		<input type="text" id="change">
+		<input type="button" name="c3" value="변환" onclick="changeColor1()"> 
+	</form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function onMouseIn(elem) {
+		elem.style.border = "solid 3px red";
+	}
+	
+	function onMouseOut(elem) {
+		elem.style.border = ""; /* script에서 null은 그냥 빈 칸으로 둔다. */
+	}
+</script>
+</head>
+<body>
+	<div style="background-color: yellow; width: 200px;" onmouseover="onMouseIn(this);" onmouseout="onMouseOut(this);">
+		마우스를 올려보세요.
+	</div>
+</body>
+</html>
