@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	body {
+		background-color: #eef;
+	}
+	
+	div {
+		padding: 20px;
+	}
+</style>
+<script type="text/javascript" src="js/js.3.x.x/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	/* 문서전체(document)가 사용할준비(ready())가 되면 function의 {}를 실행 */
+	$(document).ready(function() {
+		var i = 0;
+		/* h2에 작성된 글을 클릭(click())하면 function의 {}를 실행 */
+		$("h2").click(function() {
+			$(this).hide();
+		});
+		
+		$(".out").mouseover(function() {
+			/* text()에는 문자형도 들어올 수 있지만 연산도 가능하다. */
+			/* p tag의 첫번째는 text를 mouse over라고 표현 */
+			$("p:first", this).text("mouse over");
+			/* p tag의 마지막은 ++i를 하여 올릴때마다 연산하여 text로 표현 */
+			/* this : 현재의 문서? */
+			$("p:last", this).text(++i);
+		});
+		/* input tag에 focus가 되었을때(text box를 입력하려 할때) function을 실행 */
+		$("input").focus(function() {
+			/* 이 input tag의 배경색을 css를 통해 red색으로 스타일을 준다 */
+			$(this).css("background-color", "red");
+		});
+		/* focus를 잃었음을(text box 밖을 클릭 했을 때) 감지했을때 */
+		$("input").blur(function() {
+			$(this).css("background-color", "");
+		});
+		/* function (e) 콜백함수 자동으로 어떤정보를 가져와서 실행시키는?? */
+		/* 자동으로 리턴된 pageX의 값을 e에 저장시켜서 보내준다? */
+		$(document).mouseover(function (e) {
+			$("#log").text("e.pageX : " + e.pageX + " e.pageY : " + e.pageY);
+		});
+		
+		$("#show").click(function() {
+			$("#poster").show("slow");
+		});
+		
+		$("#animate").click(function() {
+			/* api안에 {}를 넣어 바로 실행시킬 수도 있다. */
+			/* error point = left ':' "100px" : 대신에 =를 넣어서 오류발생 */
+			$("#ani_poster").animate({
+				left : "100px"
+			});
+		});
+		/* fade-in이라는 이름이 클릭되면 function을 실행해라 */
+		$("#fade-in").click(function() {
+			/* 문자형으로 속도를 지정할 수 있고 */
+			$("#ani_poster").fadeIn("fast");
+		});
+		
+		$("#fade-out").click(function() {
+			/* 밀리세컨드 단위로 시간을 지정할 수도 있다. */
+			$("#ani_poster").fadeOut(400);
+		});
+		/* chain버튼을 click하면 function기능을 실행 */
+		/* method chaing 여러가지 method들을 연결하여 사용하는 기법 */
+		$("#chain").click(function() {
+			/* function기능은 id가 chaing_poster인 사진을show하고, fadeout하고, slidedown해라 */
+			$("#chain_poster").show("fast")
+							  .fadeOut("slow")
+							  .slideDown("fast");
+		});
+		
+		
+	});
+	
+</script>
+</head>
+<body>
+	<h2>클릭하면 사라집니다.</h2>
+	<div class="out">
+		<p>마우스를 올려보세요.</p>
+		<p>0</p>
+	</div>
+	<hr>
+	아이디 : <input type="text" name="userid">
+	<hr>
+	<div id="log"></div>
+	<hr>
+	<button id="show">Show</button>
+	<!-- img tag에서 style도 줄 수있다. 여기는 처음에 보여지지 않도록 display : none;을 작성 -->
+	<img id="poster" alt="영화포스터" src="images01/포스터18.jpg" width="300" height="300" style="display: none;">
+	<hr>
+	<!-- error point = position: relative; -->
+	<img id="ani_poster" alt="영화포스터" src="images01/포스터17.jpg" width="150" height="150" style="position: relative;">
+	<button id="animate">animate</button>
+	<button id="fade-in">Fade In</button>
+	<button id="fade-out">Fade Out</button>
+	<hr>
+	<button id="chain">메소드 체이닝 시작</button>
+	<img id="chain_poster" alt="영화포스터" src="images01/포스터17.jpg" width="200" height="200" style="display: none;">
+	<hr>
+	
+</body>
+</html>

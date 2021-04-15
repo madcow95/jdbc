@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	p {
+		background-color: yellow;
+	}
+	
+	.container {
+		height: 80px;
+		width: 200px;
+		border: dotted 1px red;
+	}
+</style>
+<script type="text/javascript" src="js/js.3.x.x/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		/* p태그에 입력한 값을 보이는 그대로 출력 */
+		$("#test").click(function() {
+			alert($("#target").text());
+		});
+		
+		/* p태그에 입력한 값을 코드로 입력한 값 그대로 출력 */
+		$("#html").click(function() {
+			alert($("#target").html());
+		});
+		
+		/* 내가 키보드로 입력한 값을 그대로 출력 */
+		$("#val").click(function() {
+			alert($("#irum").val());
+			/* console.log($("#irum").val()); */
+		});
+		
+		/* 여기의 경우 poster그림이 저장된 저장위치를 출력 */
+		$("#attr").click(function() {
+			/* alert($("#poster").attr("src")); */
+			$("#poster").attr("src", "images01/포스터17.jpg");
+		});
+		
+		$("#button1").click(function() {
+			/* p tag에서 작성한 글 뒤에 b태그에 입력한 값을 출력한다 */
+			$("#append").append("<b style='color:red'>Yes Sir</b>");
+		});
+		
+			/* p tag에서 작성한 글 앞에 b태그에 입력한 값을 출력한다 */		
+		$("#button2").click(function() {
+			$("#append").prepend("<b style='color:red'>Yes Sir</b>");
+		});
+		/* remove는 container에 해당되는 영역자체를 삭제 container자체를 삭제 */
+		$("#remove").click(function() {
+			$(".container").remove();
+		});
+		
+		/* empty는 container의 영역은 남겨두고 입력된 값만 삭제 */
+		$("#empty").click(function() {
+			$(".container").empty();
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<p id="target">이것은<strong> 하나의 </strong>단락입니다.</p>
+	<button id="test">text()</button>
+	<button id="html">html()</button>
+	<hr>
+	이름 : <input type="text" id="irum" >
+	<button id="val">val()</button>
+	<hr>
+	<img id="poster" alt="영화포스터" src="images01/포스터18.jpg" width="300" height="300">
+	<img id="ani_poster" alt="alter" src="images01/포스터17.jpg" width="300" height="300" style="display: none;">
+	<button id="attr">attr()</button>
+	<hr>
+	<p id="append">I have to study:</p>
+	<button id="button1">append()</button>
+	<button id="button2">prepend()</button>
+	<hr>
+	<button id="remove">remove()</button>
+	<button id="empty">empty()</button>
+	<br>
+	<div class="container">
+		<p class="hello">Say Hello</p>
+		<p class="bye">Good Bye</p>
+	</div>
+</body>
+</html>
