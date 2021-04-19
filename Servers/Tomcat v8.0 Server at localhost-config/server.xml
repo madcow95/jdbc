@@ -125,7 +125,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       <Context docBase="bizpoll" path="/bizpoll" reloadable="true" source="org.eclipse.jst.jee.server:bizpoll">
-      	<Resource name="jdbc/myoracle" auth="Container" type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@192.168.4.150:1521:xe" username="scott" password="1234" maxActive="20" maxIdle="10" maxWait="-1"/>
+      	<Resource name="jdbc/myoracle" auth="Container" type="javax.sql.DataSource" driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@192.168.4.148:1521:xe" username="scott" password="1234" maxActive="20" maxIdle="10" maxWait="-1"/>
       </Context>
       
       </Host>

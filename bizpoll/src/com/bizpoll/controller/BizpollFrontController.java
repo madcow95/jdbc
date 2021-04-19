@@ -47,7 +47,7 @@ public class BizpollFrontController extends HttpServlet {
 		System.out.println("command ===> " + command);
 		
 		// ---------------------- 액션 맵핑 ----------------------
-		if(command.equals("/*.bizpoll")) {
+		if(command.equals("/index.bizpoll")) {
 			action = new IndexAction();
 			foward = action.excute(request, response);
 		}

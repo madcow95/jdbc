@@ -66,4 +66,35 @@ public class ProductDAO {
 		}
 		return newProductList;
 	}
+	
+	public ArrayList<ProductDTO> listBestProduct() {
+		ArrayList<ProductDTO> bestProductList = new ArrayList<ProductDTO>();
+		
+		String sql = "SELECT * "
+				   + "FROM best_pro_view";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO pDto = new ProductDTO();
+				pDto.setP_code(rs.getString("p_code"));
+				pDto.setP_name(rs.getString("p_name"));
+				pDto.setP_price2(rs.getInt("p_price2"));
+				pDto.setP_img(rs.getString("p_img"));
+				
+				bestProductList.add(pDto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return bestProductList;
+	}
 }

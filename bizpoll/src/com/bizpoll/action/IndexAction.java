@@ -20,9 +20,11 @@ public class IndexAction implements Action{
 		
 		ProductDAO pDao = ProductDAO.getInstance();
 		ArrayList<ProductDTO> newProductList = pDao.listNewProduct();
+		ArrayList<ProductDTO> bestProductList = pDao.listBestProduct();
 		
 		// 해당객체를 request에 보내주는 역할? name은 화면에서 불러올 위치 이름
-		request.setAttribute("newProducList", newProductList);
+		request.setAttribute("newProductList", newProductList);
+		request.setAttribute("bestProductList", bestProductList);
 		
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(uri);
