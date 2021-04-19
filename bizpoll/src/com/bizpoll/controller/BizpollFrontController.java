@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
+import com.bizpoll.action.DetailAction;
 import com.bizpoll.action.IndexAction;
 
 /**
@@ -37,11 +38,10 @@ public class BizpollFrontController extends HttpServlet {
 		
 		Action action = null;
 		ActionFoward foward = null;
-		
+		DetailAction dAction = null;
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
 		String command = uri.substring(ctx.length());
-		
 		System.out.println("uri ===> " + uri);
 		System.out.println("ctx ===> " + ctx);
 		System.out.println("command ===> " + command);
@@ -49,6 +49,11 @@ public class BizpollFrontController extends HttpServlet {
 		// ---------------------- 액션 맵핑 ----------------------
 		if(command.equals("/index.bizpoll")) {
 			action = new IndexAction();
+			foward = action.excute(request, response);
+		}
+		
+		if(command.equals("/product_detail.bizpoll")) {
+			action = new DetailAction();
 			foward = action.excute(request, response);
 		}
 		

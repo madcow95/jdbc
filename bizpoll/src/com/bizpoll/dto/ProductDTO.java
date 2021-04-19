@@ -12,7 +12,7 @@ public class ProductDTO implements Serializable{
 	private String p_code;
 	private String p_name;
 	private String p_kind;
-	private int p_price;  // 원가
+	private int p_price1;  // 원가
 	private int p_price2; // 판매가
 	private int p_price3; // 이익
 	private String p_content; // 상품내용
@@ -24,13 +24,13 @@ public class ProductDTO implements Serializable{
 	public ProductDTO() {
 		super();
 	}
-	public ProductDTO(String p_code, String p_name, String p_kind, int p_price, int p_price2, int p_price3,
+	public ProductDTO(String p_code, String p_name, String p_kind, int p_price1, int p_price2, int p_price3,
 			String p_content, String p_img, String p_useyn, String p_bestyn, Date p_indate) {
 		super();
 		this.p_code = p_code;
 		this.p_name = p_name;
 		this.p_kind = p_kind;
-		this.p_price = p_price;
+		this.p_price1 = p_price1;
 		this.p_price2 = p_price2;
 		this.p_price3 = p_price3;
 		this.p_content = p_content;
@@ -57,11 +57,11 @@ public class ProductDTO implements Serializable{
 	public void setP_kind(String p_kind) {
 		this.p_kind = p_kind;
 	}
-	public int getP_price() {
-		return p_price;
+	public int getP_price1() {
+		return p_price1;
 	}
-	public void setP_price(int p_price) {
-		this.p_price = p_price;
+	public void setP_price1(int p_price1) {
+		this.p_price1 = p_price1;
 	}
 	public int getP_price2() {
 		return p_price2;
@@ -110,7 +110,7 @@ public class ProductDTO implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "ProductDTO [p_code=" + p_code + ", p_name=" + p_name + ", p_kind=" + p_kind + ", p_price=" + p_price
+		return "ProductDTO [p_code=" + p_code + ", p_name=" + p_name + ", p_kind=" + p_kind + ", p_price1=" + p_price1
 				+ ", p_price2=" + p_price2 + ", p_price3=" + p_price3 + ", p_content=" + p_content + ", p_img=" + p_img
 				+ ", p_useyn=" + p_useyn + ", p_bestyn=" + p_bestyn + ", p_indate=" + p_indate + "]";
 	}

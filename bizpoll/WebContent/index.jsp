@@ -14,5 +14,32 @@
 <div id="main_img">
 	<img alt="main_img" src="images/포스터12.jpg">
 </div>
+<div id="front">
+	<h2>New Item</h2>
+	<div id="newProduct">
+		<!-- forEach : 반복문 items는 IndexAction class의 setAttribute의 ""이름-->
+		<c:forEach items="${newProductList}" var="newProductDto">
+			<div id="item">
+				<a href="product_detail.bizpoll?p_code=${newProductDto.p_code}"> <!-- newProducList를 newProducDto라고 새로 정의하고, 달러{}에서 p_code를 호출 전체적인 방법은 DAO에서 DTO가져오는 방법과 비슷하지만 .get을 붙이지 않고 사용한다.-->
+					<img alt="" src="images/product_img/${newProductDto.p_img}"> <!-- 주석처리에서도 달러{}는 하지말자 ㅅ -->
+					<h3>${newProductDto.p_name}</h3>
+					<p><fmt:formatNumber value="${newProductDto.p_price2}" type="currency"/></p>
+				</a>
+			</div>
+		</c:forEach>
+	</div>
+	<h2>Best Item</h2>
+	<div id="bestProduct">
+		<c:forEach items="${bestProductList}" var="bestProductDto">
+			<div id="item2">
+				<a href="product_detail.bizpoll?p_code=${bestProductDto.p_code}"> 
+					<img alt="" src="images/product_img/${bestProductDto.p_img}"> 
+					<h3>${bestProductDto.p_name}</h3>
+					<p><fmt:formatNumber value="${bestProductDto.p_price2}" type="currency"/></p>
+				</a>
+			</div>
+		</c:forEach>
+	</div>
+</div>
 </body>
 </html>
