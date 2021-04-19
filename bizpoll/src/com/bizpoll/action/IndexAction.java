@@ -32,6 +32,5 @@ public class IndexAction implements Action{
 		forward.setRedirect(false);
 		return forward;
 	}
-
 	
 }

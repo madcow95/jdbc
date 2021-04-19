@@ -23,9 +23,20 @@ public class ProductDAO {
 	}
 
 	/*
-	 * SELECT p_code, p_name, p_price2, p_img FROM (SELECT rownum, p_code, p_name,
-	 * p_price2, p_img FROM product WHERE p_bestyn = 'y' ORDER BY p_indate desc)
-	 * WHERE rownum <= 4; 원문 코드
+	 * SELECT p_code,
+	 * 		  p_name,
+	 * 		  p_price2,
+	 * 		  p_img
+	 * FROM (SELECT rownum,
+	 * 			    p_code,
+	 * 			    p_name,
+	 * 				p_price2,
+	 * 				p_img
+	 * 		 FROM 	product
+	 * 		 WHERE p_bestyn = 'y'
+	 * 		 ORDER BY p_indate desc)
+	 * WHERE rownum <= 4;
+	 * 원문 코드
 	 */
 
 	public ArrayList<ProductDTO> listNewProduct() {

@@ -38,7 +38,6 @@ public class BizpollFrontController extends HttpServlet {
 		
 		Action action = null;
 		ActionFoward foward = null;
-		DetailAction dAction = null;
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
 		String command = uri.substring(ctx.length());
