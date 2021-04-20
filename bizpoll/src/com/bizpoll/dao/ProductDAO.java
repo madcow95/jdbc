@@ -5,9 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
-
 import com.bizpoll.common.DBManager;
+import com.bizpoll.dto.MemberDTO;
 import com.bizpoll.dto.ProductDTO;
 
 public class ProductDAO {
@@ -126,6 +125,61 @@ public class ProductDAO {
 				pDto.setP_useyn(rs.getString("p_useyn"));
 				pDto.setP_bestyn(rs.getString("p_bestyn"));
 				pDto.setP_indate(rs.getDate("p_indate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return pDto;
+	}
+	
+	public void join(String id, String pwd, String name, String email, String addr, String phone, String zip_num) {
+		String sql = "INSERT INTO member(id, pwd, name, email, address, phone, zip_num) "
+				   + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, email);
+			pstmt.setString(5, addr);
+			pstmt.setString(6, phone);
+			pstmt.setString(7, zip_num);
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+	}
+	
+	public MemberDTO login(String id, String pwd) {
+		MemberDTO pDto = new MemberDTO();
+		
+		String sql = "SELECT name "
+				   + "FROM member "
+				   + "WHERE id = ? "
+				   + "AND pwd = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				pDto.setName(rs.getString("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

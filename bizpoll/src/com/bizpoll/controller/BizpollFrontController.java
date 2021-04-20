@@ -13,6 +13,11 @@ import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
 import com.bizpoll.action.DetailAction;
 import com.bizpoll.action.IndexAction;
+import com.bizpoll.action.JoinAction;
+import com.bizpoll.action.JoinAction_Detail;
+import com.bizpoll.action.LoginAction;
+import com.bizpoll.action.LoginAction_Detail;
+import com.bizpoll.action.LogoutAction;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -50,12 +55,30 @@ public class BizpollFrontController extends HttpServlet {
 			action = new IndexAction();
 			foward = action.excute(request, response);
 		}
-		
-		if(command.equals("/product_detail.bizpoll")) {
+		else if(command.equals("/product_detail.bizpoll")) {
 			action = new DetailAction();
 			foward = action.excute(request, response);
 		}
-		
+		else if(command.equals("/join.bizpoll")) {
+			action = new JoinAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/join_detail.bizpoll")) {
+			action = new JoinAction_Detail();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/login.bizpoll")) {
+			action = new LoginAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/login_detail.bizpoll")) {
+			action = new LoginAction_Detail();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/logout.bizpoll")) {
+			action = new LogoutAction();
+			foward = action.excute(request, response);
+		}
 		// ---------------------- 공통 분기 작업 ----------------------
 		if (foward != null) {
 			if(foward.isRedirect()) {
