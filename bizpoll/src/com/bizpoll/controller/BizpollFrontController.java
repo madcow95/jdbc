@@ -89,5 +89,4 @@ public class BizpollFrontController extends HttpServlet {
 			}
 		}
 	}
-
 }
