@@ -13,8 +13,9 @@ public class LogoutAction implements Action{
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String url = "member/logout.jsp";
+		String url = "index.bizpoll";
 		
+		session.invalidate();
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(true);

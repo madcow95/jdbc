@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bizpoll.common.DBManager;
+import com.bizpoll.dao.MemberDAO;
 import com.bizpoll.dto.MemberDTO;
 
 public class LoginAction_Detail implements Action{
@@ -24,35 +25,10 @@ public class LoginAction_Detail implements Action{
 		String userId = request.getParameter("id");
 		String userPwd = request.getParameter("pwd");
 		
-		MemberDTO mDto = null;
 		HttpSession session = request.getSession();
 		
-		String sql = "SELECT * "
-				   + "FROM member "
-				   + "WHERE id=? "
-				   + "AND pwd=?";
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				mDto = new MemberDTO();
-				mDto.setName(rs.getString("name"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt, rs);
-		}
+		MemberDAO mDao = MemberDAO.getInstance();
+		MemberDTO mDto = mDao.getMember(userId);
 		
 		if(mDto != null) {
 			session.removeAttribute("userId");

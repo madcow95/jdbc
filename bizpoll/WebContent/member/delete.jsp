@@ -7,8 +7,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript">
-	alert("로그 아웃");
-</script>
 </body>
 </html>

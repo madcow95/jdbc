@@ -18,6 +18,7 @@ import com.bizpoll.action.JoinAction_Detail;
 import com.bizpoll.action.LoginAction;
 import com.bizpoll.action.LoginAction_Detail;
 import com.bizpoll.action.LogoutAction;
+import com.bizpoll.action.MemberDeleteAction;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -79,6 +80,11 @@ public class BizpollFrontController extends HttpServlet {
 			action = new LogoutAction();
 			foward = action.excute(request, response);
 		}
+		/*
+		 * else if(command.equals("/delete.bizpoll")) { action = new
+		 * MemberDeleteAction(); foward = action.excute(request, response); }
+		 */
+		
 		// ---------------------- 공통 분기 작업 ----------------------
 		if (foward != null) {
 			if(foward.isRedirect()) {

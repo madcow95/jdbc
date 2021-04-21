@@ -23,7 +23,7 @@
 				<a href="index.bizpoll"><img alt="logo" src="images/로고.png" width="100" height="80"></a>
 			</div>
 		</header>
-		<nav id="category_menu">
+		<nav id="catagory_menu">
 			<ul>
 				<c:choose>
 					<c:when test="${empty sessionScope.userId}">
@@ -35,7 +35,9 @@
 						<li>
 							${sessionScope.userId.name}({sessionScope.userId.id})
 						</li>
-						<li><a href="logout.bizpoll">LOGOUT</a></li>
+						<li><a href="logout.bizpoll" onclick="location='index.bizpoll'">LOGOUT</a></li>
+						<li>|</li>
+						<li><a href="delete.bizpoll" onclick="location='index.bizpoll'">회원탈퇴</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li>|</li>
