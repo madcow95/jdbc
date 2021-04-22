@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="user">
-	<h3>${login.p_name} 로그인완료</h3>
+	<h3>${login.p_name}</h3>
 </div>
 </body>
 </html>

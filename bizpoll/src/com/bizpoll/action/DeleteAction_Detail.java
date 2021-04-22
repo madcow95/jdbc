@@ -10,33 +10,33 @@ import javax.servlet.http.HttpSession;
 import com.bizpoll.dao.MemberDAO;
 import com.bizpoll.dto.MemberDTO;
 
-public class LoginAction_Detail implements Action {
+public class DeleteAction_Detail implements Action{
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String url = "member/login_fail.jsp";
-
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
-		System.out.println(userId);
+		String url = "index.bizpoll";
+		
+		String userID = request.getParameter("id");
+		String userPWD = request.getParameter("pwd");
+		System.out.println(userID);
 		HttpSession session = request.getSession();
-
-		MemberDAO mDao = MemberDAO.getInstance();
-		MemberDTO mDto = mDao.getMember(userId);
-
+		
+		MemberDTO mDto = new MemberDTO();
+		mDto.setId(userID);
+		mDto.setPwd(userPWD);
+		
 		if (mDto != null) {
-			if (mDto.getPwd().equals(userPwd)) {
-				session.removeAttribute("userId");
-				session.setAttribute("userId", mDto);
-				url = "index.bizpoll";
-			}
+			
 		}
+		session.invalidate();
+		
+		MemberDAO mDao = MemberDAO.getInstance();
+		mDao.deleteMember(userID, userPWD);
+		
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);
-
 		return forward;
 	}
 

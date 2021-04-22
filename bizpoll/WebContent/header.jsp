@@ -20,7 +20,7 @@
 	<div id="wrap">
 		<header>
 			<div id="logo">
-				<a href="index.bizpoll"><img alt="logo" src="images/로고.png" width="100" height="80"></a>
+				<a href="index.bizpoll"><img alt="logo" src="images/로고.png" width="50" height="55"></a>
 			</div>
 		</header>
 		<nav id="catagory_menu">
@@ -29,27 +29,27 @@
 					<c:when test="${empty sessionScope.userId}">
 						<li><a href="login.bizpoll">LOGIN</a></li>
 						<li>|</li>
-						<li><a href="join.bizpoll">JOIN</a></li>
+						<li><a href="contract.bizpoll">JOIN</a></li>
 					</c:when>
 					<c:otherwise>
-						<li>
-							${sessionScope.userId.name}({sessionScope.userId.id})
+						<li style="color: orange">
+							${sessionScope.userId.name}(${sessionScope.userId.id})
 						</li>
 						<li><a href="logout.bizpoll" onclick="location='index.bizpoll'">LOGOUT</a></li>
 						<li>|</li>
 						<li><a href="delete.bizpoll" onclick="location='index.bizpoll'">회원탈퇴</a></li>
+						<li>|</li>
+						<li><a href="update.bizpoll">MY PAGE</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li>|</li>
 				<li><a>CART</a></li>
 				<li>|</li>
-				<li><a>MY PAGE</a></li>
-				<li>|</li>
 				<li><a>Q&amp;A (1 : 1)</a></li> <!-- &amp; : \ -->
 				<li>|</li>
 				<li><a>APP</a></li>
 				<li>|</li>
-				<li><a>board</a></li>
+				<li><a href="boardList.bizpoll">board</a></li>
 			</ul>
 		</nav>
 	</div>

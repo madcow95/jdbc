@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bizpoll.dao.ProductDAO;
-import com.bizpoll.dto.ProductDTO;
-
 public class LoginAction implements Action{
 
 	@Override

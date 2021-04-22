@@ -11,14 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
+import com.bizpoll.action.ContractAction;
+import com.bizpoll.action.DeleteAction;
+import com.bizpoll.action.DeleteAction_Detail;
 import com.bizpoll.action.DetailAction;
+import com.bizpoll.action.FindZipNumAction;
+import com.bizpoll.action.IdCheckFormAction;
 import com.bizpoll.action.IndexAction;
 import com.bizpoll.action.JoinAction;
-import com.bizpoll.action.JoinAction_Detail;
+import com.bizpoll.action.JoinFormAction;
 import com.bizpoll.action.LoginAction;
 import com.bizpoll.action.LoginAction_Detail;
 import com.bizpoll.action.LogoutAction;
-import com.bizpoll.action.MemberDeleteAction;
+import com.bizpoll.action.UpdateAction;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -52,22 +57,30 @@ public class BizpollFrontController extends HttpServlet {
 		System.out.println("command ===> " + command);
 		
 		// ---------------------- 액션 맵핑 ----------------------
+		// 메인 홈페이지
 		if(command.equals("/index.bizpoll")) {
 			action = new IndexAction();
 			foward = action.excute(request, response);
 		}
+		// 상품 상세
 		else if(command.equals("/product_detail.bizpoll")) {
 			action = new DetailAction();
 			foward = action.excute(request, response);
 		}
-		else if(command.equals("/join.bizpoll")) {
-			action = new JoinAction();
+		// 회원가입
+		else if(command.equals("/contract.bizpoll")) {
+			action = new ContractAction();
 			foward = action.excute(request, response);
 		}
-		else if(command.equals("/join_detail.bizpoll")) {
-			action = new JoinAction_Detail();
+		else if(command.equals("/join_form.bizpoll")) {
+			action = new JoinFormAction();
 			foward = action.excute(request, response);
 		}
+		else if(command.equals("/id_check_form.bizpoll")) {
+			action = new IdCheckFormAction();
+			foward = action.excute(request, response);
+		}
+		// 로그인
 		else if(command.equals("/login.bizpoll")) {
 			action = new LoginAction();
 			foward = action.excute(request, response);
@@ -76,15 +89,32 @@ public class BizpollFrontController extends HttpServlet {
 			action = new LoginAction_Detail();
 			foward = action.excute(request, response);
 		}
+		// 로그아웃
 		else if(command.equals("/logout.bizpoll")) {
 			action = new LogoutAction();
 			foward = action.excute(request, response);
 		}
-		/*
-		 * else if(command.equals("/delete.bizpoll")) { action = new
-		 * MemberDeleteAction(); foward = action.excute(request, response); }
-		 */
-		
+		// 우편번호찾기
+		else if(command.equals("/find_zip_num.bizpoll")) {
+			action = new FindZipNumAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/join.bizpoll")) {
+			action = new JoinAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/delete.bizpoll")) {
+			action = new DeleteAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/delete_detail.bizpoll")) {
+			action = new DeleteAction_Detail();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/update.bizpoll")) {
+			action = new UpdateAction();
+			foward = action.excute(request, response);
+		}
 		// ---------------------- 공통 분기 작업 ----------------------
 		if (foward != null) {
 			if(foward.isRedirect()) {

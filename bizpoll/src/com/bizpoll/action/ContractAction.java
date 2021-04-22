@@ -5,24 +5,18 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class LogoutAction implements Action {
+public class ContractAction implements Action{
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "index.bizpoll";
-		HttpSession session = request.getSession(false);
-
-		if (session != null) {
-			session.invalidate();
-		}
-
+		
+		String uri = "member/contract.jsp";
+		
 		ActionFoward forward = new ActionFoward();
-		forward.setPath(url);
-		forward.setRedirect(true);
+		forward.setPath(uri);
+		forward.setRedirect(false);
 		return forward;
 	}
-
 }
