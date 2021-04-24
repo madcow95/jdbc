@@ -26,9 +26,6 @@ public class DeleteAction_Detail implements Action{
 		mDto.setId(userID);
 		mDto.setPwd(userPWD);
 		
-		if (mDto != null) {
-			
-		}
 		session.invalidate();
 		
 		MemberDAO mDao = MemberDAO.getInstance();

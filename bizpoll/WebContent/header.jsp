@@ -49,7 +49,7 @@
 				<li>|</li>
 				<li><a>APP</a></li>
 				<li>|</li>
-				<li><a href="boardList.bizpoll">board</a></li>
+				<li><a href="board_list.bizpoll">board</a></li>
 			</ul>
 		</nav>
 	</div>

@@ -16,8 +16,6 @@ function go_save() {
 	if (document.frm.id.value == null) {
 		alert("아이디를 입력하지 않았습니다.");
 		document.frm.id.focus();
-	} else if (document.frm.id.value != document.frm.reid.value) {
-		alert("중복체크를 하지 않았습니다.");
 	} else if (document.frm.pwd.value == null) {
 		alert("비밀번호를 입력하지 않았습니다.");
 		document.frm.pwd.focus();

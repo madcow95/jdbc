@@ -20,12 +20,10 @@ public class LoginAction_Detail implements Action {
 
 		String userId = request.getParameter("id");
 		String userPwd = request.getParameter("pwd");
-		System.out.println(userId);
 		HttpSession session = request.getSession();
 
 		MemberDAO mDao = MemberDAO.getInstance();
 		MemberDTO mDto = mDao.getMember(userId);
-
 		if (mDto != null) {
 			if (mDto.getPwd().equals(userPwd)) {
 				session.removeAttribute("userId");

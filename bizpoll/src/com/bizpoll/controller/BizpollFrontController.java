@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
+import com.bizpoll.action.BoardListAction;
 import com.bizpoll.action.ContractAction;
 import com.bizpoll.action.DeleteAction;
 import com.bizpoll.action.DeleteAction_Detail;
@@ -24,6 +25,7 @@ import com.bizpoll.action.LoginAction;
 import com.bizpoll.action.LoginAction_Detail;
 import com.bizpoll.action.LogoutAction;
 import com.bizpoll.action.UpdateAction;
+import com.bizpoll.action.UpdateDetailAction;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -103,6 +105,7 @@ public class BizpollFrontController extends HttpServlet {
 			action = new JoinAction();
 			foward = action.excute(request, response);
 		}
+		// 회원탈퇴
 		else if(command.equals("/delete.bizpoll")) {
 			action = new DeleteAction();
 			foward = action.excute(request, response);
@@ -111,8 +114,20 @@ public class BizpollFrontController extends HttpServlet {
 			action = new DeleteAction_Detail();
 			foward = action.excute(request, response);
 		}
+		// 회원정보수정
 		else if(command.equals("/update.bizpoll")) {
 			action = new UpdateAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/update_detail.bizpoll")) {
+			action = new UpdateDetailAction();
+			foward = action.excute(request, response);
+		}
+		
+		// ---------------------- 게시판 액션 매핑 ----------------------
+		
+		if(command.equals("/board_list.bizpoll")) {
+			action = new BoardListAction();
 			foward = action.excute(request, response);
 		}
 		// ---------------------- 공통 분기 작업 ----------------------

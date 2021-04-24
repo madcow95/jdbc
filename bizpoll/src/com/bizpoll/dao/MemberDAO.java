@@ -3,6 +3,7 @@ package com.bizpoll.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import com.bizpoll.common.DBManager;
 import com.bizpoll.dto.MemberDTO;
@@ -21,6 +22,39 @@ public class MemberDAO {
 	
 	public MemberDTO getMember(String userId) {
 		
+		MemberDTO mDto = null;
+		
+		String sql = "SELECT id,pwd,name "
+				   + "FROM member "
+				   + "WHERE id=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDto = new MemberDTO();
+				/* mDto.setName(rs.getString("name")); */
+				mDto.setId(rs.getString("id"));
+				mDto.setPwd(rs.getString("pwd"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return mDto;
+	}
+	
+public ArrayList<MemberDTO> getMember2(String userId) {
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		MemberDTO mDto = null;
 		
 		String sql = "SELECT * "
@@ -43,13 +77,14 @@ public class MemberDAO {
 				mDto.setName(rs.getString("name"));
 				mDto.setId(rs.getString("id"));
 				mDto.setPwd(rs.getString("pwd"));
+				list.add(mDto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		return mDto;
+		return list;
 	}
 	
 	public void deleteMember(String id, String pwd) {
@@ -158,10 +193,26 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public void update(String pwd) {
+	public void update(String id, String pwd, String changePwd) {
 		String sql = "UPDATE member " + 
 				"SET pwd = ? " + 
 				"WHERE id = ? " + 
 				"AND pwd = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, changePwd);
+			pstmt.setString(2, id);
+			pstmt.setString(3, pwd);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
 	}
 }
