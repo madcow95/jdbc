@@ -22,7 +22,7 @@ function go_save() {
 	} else if (document.frm.pwd.value != document.frm.pwdCheck.value) {
 		alert("비밀번호가 일치하지 않습니다.");
 		document.frm.pwdCheck.focus();
-	} else if (document.frm.name.value = null) {
+	} else if (document.frm.name.value == null) {
 		alert("이름을 입력해주세요");
 		document.frm.name.focus();
 	} else if (document.frm.email.value == null) {

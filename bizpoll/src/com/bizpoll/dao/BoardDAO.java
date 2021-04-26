@@ -34,4 +34,38 @@ public class BoardDAO {
 		}
 		return boardList;
 	}
+
+	public Integer getNewArticleNo() {
+		sqlSession = sqlSessionFactory.openSession(); // 세션이 열린다?
+		
+		Integer articleNo = 0;
+		
+		try {
+			articleNo = sqlSession.selectOne("getNewArticleNo");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		return articleNo;
+	}
+	
+	public int create(BoardDTO bDto) {
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		int result = 0;
+		
+		try {
+			result = sqlSession.insert("creatBoard", bDto);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		return result;
+	}
 }

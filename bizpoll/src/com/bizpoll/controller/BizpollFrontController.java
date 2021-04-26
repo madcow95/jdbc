@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
+import com.bizpoll.action.BoardAddAction;
+import com.bizpoll.action.BoardFormAction;
 import com.bizpoll.action.BoardListAction;
 import com.bizpoll.action.ContractAction;
 import com.bizpoll.action.DeleteAction;
@@ -24,6 +26,7 @@ import com.bizpoll.action.JoinFormAction;
 import com.bizpoll.action.LoginAction;
 import com.bizpoll.action.LoginAction_Detail;
 import com.bizpoll.action.LogoutAction;
+import com.bizpoll.action.MybatisLoginAction;
 import com.bizpoll.action.UpdateAction;
 import com.bizpoll.action.UpdateDetailAction;
 
@@ -101,6 +104,7 @@ public class BizpollFrontController extends HttpServlet {
 			action = new FindZipNumAction();
 			foward = action.excute(request, response);
 		}
+		// 회원가입 후 홈으로
 		else if(command.equals("/join.bizpoll")) {
 			action = new JoinAction();
 			foward = action.excute(request, response);
@@ -129,7 +133,22 @@ public class BizpollFrontController extends HttpServlet {
 		if(command.equals("/board_list.bizpoll")) {
 			action = new BoardListAction();
 			foward = action.excute(request, response);
+		} else if(command.equals("/boardForm.bizpoll")) {
+			action = new BoardFormAction();
+			foward = action.excute(request, response);
+		} else if(command.equals("/boardAdd.bizpoll")) {
+			action = new BoardAddAction();
+			foward = action.excute(request, response);
 		}
+		
+		// ---------------------- myBatis 작업 --------------------------
+		
+		// 로그인
+		if (command.equals("/mybatislogin.bizpoll")) {
+			action = new MybatisLoginAction();
+			foward = action.excute(request, response);
+		}
+		
 		// ---------------------- 공통 분기 작업 ----------------------
 		if (foward != null) {
 			if(foward.isRedirect()) {

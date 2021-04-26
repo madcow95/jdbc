@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.bizpoll.common.DBManager;
 import com.bizpoll.dto.MemberDTO;
+import com.bizpoll.mybatis.SqlMapConfig;
 
 public class MemberDAO {
 	
@@ -19,6 +24,9 @@ public class MemberDAO {
 	public static MemberDAO getInstance() {
 		return instance;
 	}
+	
+	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
+	SqlSession sqlSession;
 	
 	public MemberDTO getMember(String userId) {
 		
@@ -214,5 +222,21 @@ public ArrayList<MemberDTO> getMember2(String userId) {
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
+	}
+	
+	public List<MemberDTO> mybatisLogin(){
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		List<MemberDTO> memberList = null;
+		
+		try {
+			memberList = sqlSession.selectList("loginList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return memberList;
 	}
 }

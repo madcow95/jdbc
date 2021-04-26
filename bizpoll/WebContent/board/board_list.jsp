@@ -71,7 +71,7 @@
 			</c:choose>
 		</tbody>
 	</table>
-	<a class="cls1" href="#">
+	<a class="cls1" href="boardForm.bizpoll">
 		<p class="cls2">글쓰기</p>
 	</a>
 <%@ include file="../footer.jsp" %>

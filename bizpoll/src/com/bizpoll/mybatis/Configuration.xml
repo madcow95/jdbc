@@ -16,6 +16,7 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/bizpoll/mybatis/BoardMapper.xml"/> 
+    <mapper resource="com/bizpoll/mybatis/BoardMapper.xml"/>
+    <mapper resource="com/bizpoll/mybatis/LoginMapper.xml"/>
   </mappers>
 </configuration>
