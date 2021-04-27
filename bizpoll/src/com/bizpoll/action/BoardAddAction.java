@@ -27,6 +27,7 @@ public class BoardAddAction implements Action{
 		Map<String, String> boardMap = FileUpload.upload(request, response);
 		
 		int articleNo = bDao.getNewArticleNo(); // bDao method 
+		System.out.println("articleno = " + articleNo);
 		String title = boardMap.get("subject");
 		String content = boardMap.get("content");
 		String fileName = boardMap.get("filename");

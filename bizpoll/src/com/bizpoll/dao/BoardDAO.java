@@ -1,10 +1,14 @@
 package com.bizpoll.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.bizpoll.common.DBManager;
 import com.bizpoll.dto.BoardDTO;
 import com.bizpoll.mybatis.SqlMapConfig;
 
@@ -18,6 +22,7 @@ public class BoardDAO {
 	
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
 	SqlSession sqlSession;
+	
 	
 	public List<BoardDTO> boardList() {
 		
@@ -42,6 +47,7 @@ public class BoardDAO {
 		
 		try {
 			articleNo = sqlSession.selectOne("getNewArticleNo");
+			System.out.println("articleNo" + articleNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -68,4 +74,60 @@ public class BoardDAO {
 		
 		return result;
 	}
+	
+	public BoardDTO getBoard(String artNo) {
+		
+		String sql = "SELECT * FROM board WHERE articleno = ?";
+		BoardDTO bDto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, artNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bDto = new BoardDTO();
+				bDto.setArticleno(rs.getInt("articleno"));
+				bDto.setSubject(rs.getString("subject"));
+				bDto.setContent(rs.getString("content"));
+				bDto.setFilename(rs.getString("filename"));
+				bDto.setRef(rs.getInt("ref"));
+				bDto.setId(rs.getString("id"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		
+		return bDto;
+	}
+	
+	public int boardDel(String id, String article) {
+		
+		String sql = "DELETE FROM board " + 
+				"WHERE articleno=? " + 
+				"AND id = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = -1;
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, article);
+			pstmt.setString(2, id);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+		return result;
+	}
+	
 }

@@ -1,4 +1,4 @@
-package com.bizpoll.action;
+package com.bizpoll.boardaction;
 
 import java.io.IOException;
 
@@ -7,33 +7,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.bizpoll.dao.MemberDAO;
-import com.bizpoll.dto.MemberDTO;
+import com.bizpoll.action.Action;
+import com.bizpoll.action.ActionFoward;
+import com.bizpoll.dao.BoardDAO;
+import com.bizpoll.dto.BoardDTO;
 
-public class DeleteAction_Detail implements Action{
+public class BoardAction implements Action{
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "index.bizpoll";
 		
-		String userID = request.getParameter("id");
-		String userPWD = request.getParameter("pwd");
-		System.out.println(userID);
+		String url = "board/board_detail.jsp";
 		HttpSession session = request.getSession();
+		String strArtNo = request.getParameter("articleno");
+		BoardDAO bDao = BoardDAO.getInstance();
 		
-		MemberDTO mDto = new MemberDTO();
-		mDto.setId(userID);
-		mDto.setPwd(userPWD);
-		
-		session.invalidate();
-		
-		MemberDAO mDao = MemberDAO.getInstance();
-		mDao.deleteMember(userID, userPWD);
+		BoardDTO bDto = bDao.getBoard(strArtNo);
+		session.setAttribute("artNo", bDto);
 		
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);
+		
 		return forward;
 	}
 

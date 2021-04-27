@@ -23,7 +23,17 @@
 		obj.action="board_list.bizpoll";
 		obj.submit();
 	}
-
+	
+	function logintest() {
+		var idval = document.articleForm.id.value;
+		if (idval == "") {
+			alert("로그인을 해야합니다");
+			location.href = "login.bizpoll";
+		}
+		else {
+			document.articleForm.submit();
+		}
+	}
 </script> 
 </head>
 <body>
@@ -51,7 +61,7 @@
 		<tr>
 			<td align="right"></td>
 			<td colspan="2">
-				<input type="submit" value="글쓰기">
+				<input type="button" value="글쓰기" onclick="logintest();">
 				<input type="button" value="글목록" onclick="backToList(this.form);">
 			</td>
 		</tr>

@@ -19,6 +19,18 @@
 		font-size: 30px;
 	}
 </style>
+<script type="text/javascript">
+	function logintest() {
+		var idval = document.frm.id.value;
+		if (idval == "") {
+			alert("로그인을 해야합니다");
+			location.href = "login.bizpoll";
+		}
+		else {
+			document.frm.submit();
+		}
+}
+</script>
 </head>
 <body>
 	<h1 class="cls2">게시판</h1>
@@ -71,9 +83,13 @@
 			</c:choose>
 		</tbody>
 	</table>
-	<a class="cls1" href="boardForm.bizpoll">
+	<form action="boardForm.bizpoll" name="frm" method="post" class="cls1">
+		<input type="hidden" value="${sessionScope.userId.id}" name="id">
+		<input type="button" value="글쓰기" onclick="logintest();">
+	</form>
+	<!-- <a class="cls1" href="boardForm.bizpoll">
 		<p class="cls2">글쓰기</p>
-	</a>
+	</a> -->
 <%@ include file="../footer.jsp" %>
 </body>
 </html>

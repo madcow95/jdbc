@@ -32,7 +32,7 @@ public class MemberDAO {
 		
 		MemberDTO mDto = null;
 		
-		String sql = "SELECT id,pwd,name "
+		String sql = "SELECT * "
 				   + "FROM member "
 				   + "WHERE id=?";
 		
@@ -49,9 +49,9 @@ public class MemberDAO {
 			
 			if(rs.next()) {
 				mDto = new MemberDTO();
-				/* mDto.setName(rs.getString("name")); */
 				mDto.setId(rs.getString("id"));
 				mDto.setPwd(rs.getString("pwd"));
+				mDto.setName(rs.getString("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

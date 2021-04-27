@@ -25,7 +25,7 @@
 		<label>ID</label>
 		<input type="text" name="id" value="<%=userID%>" readonly="readonly"><br>
 		<label>Name</label>
-		<input type="text" name="id" value="<%=userName%>" readonly="readonly"><br>
+		<input type="text" name="name" value="<%=userName%>" readonly="readonly"><br>
 		<label>Password</label>
 		<input type="password" name="pwd"><br>
 		<label>Retype Password</label>

@@ -15,8 +15,6 @@ import com.bizpoll.action.BoardAddAction;
 import com.bizpoll.action.BoardFormAction;
 import com.bizpoll.action.BoardListAction;
 import com.bizpoll.action.ContractAction;
-import com.bizpoll.action.DeleteAction;
-import com.bizpoll.action.DeleteAction_Detail;
 import com.bizpoll.action.DetailAction;
 import com.bizpoll.action.FindZipNumAction;
 import com.bizpoll.action.IdCheckFormAction;
@@ -29,6 +27,9 @@ import com.bizpoll.action.LogoutAction;
 import com.bizpoll.action.MybatisLoginAction;
 import com.bizpoll.action.UpdateAction;
 import com.bizpoll.action.UpdateDetailAction;
+import com.bizpoll.boardaction.BoardAction;
+import com.bizpoll.boardaction.DeleteAction;
+import com.bizpoll.boardaction.DeletePostAction;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -109,15 +110,8 @@ public class BizpollFrontController extends HttpServlet {
 			action = new JoinAction();
 			foward = action.excute(request, response);
 		}
-		// 회원탈퇴
-		else if(command.equals("/delete.bizpoll")) {
-			action = new DeleteAction();
-			foward = action.excute(request, response);
-		}
-		else if(command.equals("/delete_detail.bizpoll")) {
-			action = new DeleteAction_Detail();
-			foward = action.excute(request, response);
-		}
+		
+		
 		// 회원정보수정
 		else if(command.equals("/update.bizpoll")) {
 			action = new UpdateAction();
@@ -138,6 +132,21 @@ public class BizpollFrontController extends HttpServlet {
 			foward = action.excute(request, response);
 		} else if(command.equals("/boardAdd.bizpoll")) {
 			action = new BoardAddAction();
+			foward = action.excute(request, response);
+		}
+		
+		// ---------------------- 게시판 상세 --------------------------
+		if(command.equals("/boardView.bizpoll")) {
+			action = new BoardAction();
+			foward = action.excute(request, response);
+		}
+		// 게시글 삭제
+		else if (command.equals("/delete.bizpoll")) {
+			action = new DeleteAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/delete_post.bizpoll")) {
+			action = new DeletePostAction();
 			foward = action.excute(request, response);
 		}
 		
