@@ -37,7 +37,7 @@
 						</li>
 						<li><a href="logout.bizpoll" onclick="location='index.bizpoll'">LOGOUT</a></li>
 						<li>|</li>
-						<li><a href="delete.bizpoll" onclick="location='index.bizpoll'">회원탈퇴</a></li>
+						<li><a href="#" onclick="location='index.bizpoll'">회원탈퇴</a></li>
 						<li>|</li>
 						<li><a href="update.bizpoll">MY PAGE</a></li>
 					</c:otherwise>

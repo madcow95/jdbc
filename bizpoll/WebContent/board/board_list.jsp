@@ -83,13 +83,13 @@
 			</c:choose>
 		</tbody>
 	</table>
-	<form action="boardForm.bizpoll" name="frm" method="post" class="cls1">
+	<form action="#" name="frm" method="post" class="cls1">
+		<!-- <input type="button" value="글쓰기" onclick="logintest();"> -->
 		<input type="hidden" value="${sessionScope.userId.id}" name="id">
-		<input type="button" value="글쓰기" onclick="logintest();">
+		<a class="cls1" href="boardForm.bizpoll" onclick="logintest();">
+			<p class="cls2">글쓰기</p>
+		</a>
 	</form>
-	<!-- <a class="cls1" href="boardForm.bizpoll">
-		<p class="cls2">글쓰기</p>
-	</a> -->
 <%@ include file="../footer.jsp" %>
 </body>
 </html>

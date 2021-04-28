@@ -239,4 +239,21 @@ public ArrayList<MemberDTO> getMember2(String userId) {
 		}
 		return memberList;
 	}
+	
+	public List<MemberDTO> findId()	{
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		List<MemberDTO> memList = null;
+		
+		try {
+			memList = sqlSession.selectList("findIdList");
+			System.out.println("memList size = " + memList.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return memList;
+	}
 }

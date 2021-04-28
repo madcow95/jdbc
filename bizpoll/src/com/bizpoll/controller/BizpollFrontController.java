@@ -14,10 +14,13 @@ import com.bizpoll.action.ActionFoward;
 import com.bizpoll.action.BoardAddAction;
 import com.bizpoll.action.BoardFormAction;
 import com.bizpoll.action.BoardListAction;
+import com.bizpoll.action.BoardModifyAction;
+import com.bizpoll.action.BoardViewAction;
 import com.bizpoll.action.ContractAction;
 import com.bizpoll.action.DetailAction;
 import com.bizpoll.action.FindZipNumAction;
 import com.bizpoll.action.IdCheckFormAction;
+import com.bizpoll.action.ImagePreViewAction;
 import com.bizpoll.action.IndexAction;
 import com.bizpoll.action.JoinAction;
 import com.bizpoll.action.JoinFormAction;
@@ -27,9 +30,10 @@ import com.bizpoll.action.LogoutAction;
 import com.bizpoll.action.MybatisLoginAction;
 import com.bizpoll.action.UpdateAction;
 import com.bizpoll.action.UpdateDetailAction;
-import com.bizpoll.boardaction.BoardAction;
 import com.bizpoll.boardaction.DeleteAction;
 import com.bizpoll.boardaction.DeletePostAction;
+import com.bizpoll.findaction.FindIdAction;
+import com.bizpoll.findaction.FindIdActionDetail;
 
 /**
  * Servlet implementation class BizpollFrontController
@@ -95,6 +99,17 @@ public class BizpollFrontController extends HttpServlet {
 			action = new LoginAction_Detail();
 			foward = action.excute(request, response);
 		}
+		
+		// 아이디 찾기
+		if(command.equals("/find_id_form.bizpoll")) {
+			action = new FindIdAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/idFind.bizpoll")) {
+			action = new FindIdActionDetail();
+			foward = action.excute(request, response);
+		}
+		
 		// 로그아웃
 		else if(command.equals("/logout.bizpoll")) {
 			action = new LogoutAction();
@@ -136,10 +151,10 @@ public class BizpollFrontController extends HttpServlet {
 		}
 		
 		// ---------------------- 게시판 상세 --------------------------
-		if(command.equals("/boardView.bizpoll")) {
-			action = new BoardAction();
-			foward = action.excute(request, response);
-		}
+//		if(command.equals("/boardView.bizpoll")) {
+//			action = new BoardAction();
+//			foward = action.excute(request, response);
+//		}
 		// 게시글 삭제
 		else if (command.equals("/delete.bizpoll")) {
 			action = new DeleteAction();
@@ -149,7 +164,18 @@ public class BizpollFrontController extends HttpServlet {
 			action = new DeletePostAction();
 			foward = action.excute(request, response);
 		}
-		
+		else if(command.equals("/imagePreView.bizpoll")) {
+			action = new ImagePreViewAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/boardView.bizpoll")) {
+			action = new BoardViewAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/boardModify.bizpoll")) {
+			action = new BoardModifyAction();
+			foward = action.excute(request, response);
+		}
 		// ---------------------- myBatis 작업 --------------------------
 		
 		// 로그인

@@ -30,5 +30,20 @@
 		VALUES(board_seq.nextval, #{subject}, #{content}, sysdate, #{ref}, #{re_step}, #{re_level}, #{filename}, #{id})
 		]]>
 	</insert>	
+									<!-- Integer Type으로 값을 넘겨받고   BoardDTO에 나온값을 넘겨준다. -->
+	<select id="selectBoardView" parameterType="Integer" resultType="com.bizpoll.dto.BoardDTO"> <!-- 클래스로부터 어떤값을 받기위할때 타입 parameterType / 넘겨줄때는 resultType -->
+		SELECT *
+		FROM board
+		WHERE articleno=#{articleno}
+		<!-- BoardDAO class에서 selectone의 object값을 조건문에 넣어주면 되는건가? -->
+	</select>
 	
+	<update id="modifyBoard" parameterType="com.bizpoll.dto.BoardDTO">
+		UPDATE board
+		SET	subject = #{subject}, content = #{content}
+		<if test="filename != null">
+			, filename = #{filename}
+		</if>
+		WHERE articleno = #{articleno}
+	</update>
 </mapper>

@@ -18,8 +18,9 @@
 		else if(document.frm.delId.value == id && document.frm.delPwds.value == pwd){
 			document.frm.action = "delete_post.bizpoll";
 			document.frm.submit();
-		} else {
-			alert("게시글을 작성한 회원이 아닙니다.")
+		} 
+		else {
+			alert("비밀번호가 일치하지 않습니다.")
 		}
 	}
 </script>

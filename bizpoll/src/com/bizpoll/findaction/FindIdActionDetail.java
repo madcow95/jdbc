@@ -1,6 +1,7 @@
-package com.bizpoll.boardaction;
+package com.bizpoll.findaction;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,29 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
-import com.bizpoll.dao.BoardDAO;
+import com.bizpoll.dao.MemberDAO;
+import com.bizpoll.dto.MemberDTO;
 
-public class DeletePostAction implements Action{
+public class FindIdActionDetail implements Action {
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String url = "member/login_fail.jsp";
+		MemberDAO mDao = MemberDAO.getInstance();
+		List<MemberDTO> memList = mDao.findId();
+		request.setAttribute("memList", memList);
 		
-		String userid = request.getParameter("delId");
-		String userarticle = request.getParameter("artino");
-		System.out.println("userid = " + userid);
-		BoardDAO bDao = BoardDAO.getInstance();
-		
-		int result = bDao.boardDel(userid, userarticle);
-		System.out.println("result = " + result);
-		if (result > 0) {
-			url = "board/del_suc.jsp";
-		}
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);
-		
 		return forward;
 	}
 

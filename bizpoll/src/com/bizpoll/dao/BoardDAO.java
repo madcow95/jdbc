@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
+import javax.websocket.Session;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -47,7 +49,7 @@ public class BoardDAO {
 		
 		try {
 			articleNo = sqlSession.selectOne("getNewArticleNo");
-			System.out.println("articleNo" + articleNo);
+			System.out.println("articleNo = " + articleNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -110,7 +112,7 @@ public class BoardDAO {
 	public int boardDel(String id, String article) {
 		
 		String sql = "DELETE FROM board " + 
-				"WHERE articleno=? " + 
+				"WHERE articleno = ? " + 
 				"AND id = ?";
 		
 		Connection conn = null;
@@ -130,4 +132,33 @@ public class BoardDAO {
 		return result;
 	}
 	
+	public BoardDTO selBoardView(int articleno) {
+		BoardDTO bDto = null;
+		
+		sqlSession = sqlSessionFactory.openSession(); // 세션객체를 얻어와서 mybatis를 호출한다
+		
+		try {
+			bDto = sqlSession.selectOne("selectBoardView", articleno); // selectBoardView에 articleno(파라미터값)을 보내는거같다.
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return bDto;
+	}
+	
+	public int modify(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession();
+		
+		int result = 0;
+		try {
+			result = sqlSession.update("modifyBoard", bDto);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 }

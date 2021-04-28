@@ -1,4 +1,4 @@
-package com.bizpoll.boardaction;
+package com.bizpoll.findaction;
 
 import java.io.IOException;
 
@@ -8,29 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
-import com.bizpoll.dao.BoardDAO;
 
-public class DeletePostAction implements Action{
+public class FindIdAction implements Action{
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String url = "member/login_fail.jsp";
+		String url = "member/find_info.jsp";
 		
-		String userid = request.getParameter("delId");
-		String userarticle = request.getParameter("artino");
-		System.out.println("userid = " + userid);
-		BoardDAO bDao = BoardDAO.getInstance();
-		
-		int result = bDao.boardDel(userid, userarticle);
-		System.out.println("result = " + result);
-		if (result > 0) {
-			url = "board/del_suc.jsp";
-		}
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);
-		
 		return forward;
 	}
 

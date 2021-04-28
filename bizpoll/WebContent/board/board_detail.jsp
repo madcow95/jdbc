@@ -12,6 +12,7 @@
 <body>
 <script type="text/javascript" src="js/member.js"></script>
 <script type="text/javascript">
+	
 	function deletePost() {
 		var user = document.frm.user.value;
 		var postUser = document.frm.postUser.value;
@@ -32,7 +33,7 @@
 	${artNo.content}<br>
 	<img alt="인식" src="images/board/${artNo.articleno}/${artNo.filename}" width="150" height="150"> <br>
 	<input type="button" value="목록" onclick="location='board_list.bizpoll'">
-	<input type="button" value="삭제" onclick="deletePost();"> 
+	<input type="button" value="삭제" onclick="deletePost();" name="delbutton"> 
 </form>
 </body>
 </html>
