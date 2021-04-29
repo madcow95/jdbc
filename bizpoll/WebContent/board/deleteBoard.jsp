@@ -1,36 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-<%@ include file="../header.jsp" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 	function delPost() {
-		var pwd = document.frm.userPwd.value;
-		var id = document.frm.userId.value;
-		if(document.frm.delPwds.value == ""){
-			alert("비밀번호를 입력하세요");
-		}
-		else if(document.frm.delId.value == id && document.frm.delPwds.value == pwd){
+		var articleno = document.frm.artino.value;
+		var sePwd = document.frm.sePwd.value;
+		var inPwd = document.frm.delPwd.value;
+		if(sePwd == inPwd){
 			document.frm.action = "delete_post.bizpoll";
 			document.frm.submit();
-		} 
-		else {
-			alert("비밀번호가 일치하지 않습니다.")
+		} else if(inPwd == ""){
+			alert("비밀번호를 입력해주세요");
+		} else {
+			alert("비밀번호가 다릅니다.");
 		}
 	}
 </script>
-<form action="" name="frm" method="post">
-	<input type="hidden" value="${sessionScope.artNo.articleno}" name="artino">
-	<input type="hidden" value="${sessionScope.userId.id }" name="userId"><br>
-	<input type="hidden" value="${sessionScope.userId.pwd }" name="userPwd"><br>
-	아이디 : <input type="text" name="delId" value="${sessionScope.userId.id }" readonly="readonly"><br>
-	비밀번호 : <input type="password" name="delPwds"><br>
-	<input type="button" value="게시글삭제" onclick="delPost();">
-</form>
+</head>
+<body>
+<%@ include file="../header.jsp" %>
+	<form action="#" name="frm" method="post">
+	<br>
+		<input type="hidden" value="${delPost.articleno}" name="artino"><br>
+		<input type="hidden" value="${sessionScope.userId.pwd}" name="sePwd"><br>
+		ID : <input type="text" value="${sessionScope.userId.id}" name="seId" disabled="disabled"><br>
+		PW : <input type="text" name="delPwd"><br>
+		<input type="button" value="삭제하기" name="delbtn" onclick="delPost();">  
+	</form>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>

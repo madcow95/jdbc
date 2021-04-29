@@ -46,4 +46,29 @@
 		</if>
 		WHERE articleno = #{articleno}
 	</update>
+	
+	<select id="selectBoardReplyMaxOrder" resultType="Integer" parameterType="com.bizpoll.dto.BoardDTO"> <!-- resulttype : mapper를 불렀을 때 왼쪽의 타입, parameterType : mapper를 불렀을 때 오른쪽의 타입 -->
+		<![CDATA[
+			SELECT NVL(MAX(re_step), 0)
+			FROM board
+			WHERE ref = #{ref}
+			AND re_step > #{re_step}
+			AND re_level <= #{re_level}
+		]]>
+	</select>
+	
+	<select id="selectRestep" resultType="int" parameterType="com.bizpoll.dto.BoardDTO">
+		SELECT NVL(MAX(re_step),0) + 1
+		FROM board
+		WHERE ref = #{ref}
+	</select>
+	
+	<update id="replyRestepUpdate" parameterType="Integer">
+		<![CDATA[
+			UPDATE board
+			SET re_step = re_step + 1
+			WHERE ref = #{ref}
+			AND re_step > #{re_step}
+		]]>
+	</update>
 </mapper>

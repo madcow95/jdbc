@@ -19,5 +19,6 @@
     <mapper resource="com/bizpoll/mybatis/BoardMapper.xml"/>
     <mapper resource="com/bizpoll/mybatis/LoginMapper.xml"/>
     <mapper resource="com/bizpoll/mybatis/FindIdMapper.xml"/>
+    <mapper resource="com/bizpoll/mybatis/MemberMapper.xml"/>
   </mappers>
 </configuration>

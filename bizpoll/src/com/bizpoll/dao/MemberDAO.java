@@ -28,6 +28,21 @@ public class MemberDAO {
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
 	SqlSession sqlSession;
 	
+	public int batisJoin(MemberDTO mDto) {
+		
+		sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try {
+			result = sqlSession.insert("joinList", mDto);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
 	public MemberDTO getMember(String userId) {
 		
 		MemberDTO mDto = null;

@@ -109,11 +109,11 @@ public class BoardDAO {
 		return bDto;
 	}
 	
-	public int boardDel(String id, String article) {
+	public int boardDel(int article) {
 		
 		String sql = "DELETE FROM board " + 
-				"WHERE articleno = ? " + 
-				"AND id = ?";
+				"WHERE articleno = ? ";
+				
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -121,8 +121,7 @@ public class BoardDAO {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, article);
-			pstmt.setString(2, id);
+			pstmt.setInt(1, article);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,6 +153,44 @@ public class BoardDAO {
 		try {
 			result = sqlSession.update("modifyBoard", bDto);
 			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
+	public int replyReStepUpdate(BoardDTO bDto) {
+		
+		sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		
+		try {
+			int maxsOrder = sqlSession.selectOne("selectBoardReplyMaxOrder", bDto); // list : selectList , select
+			System.out.println("maxsOrder >> " + maxsOrder);
+			
+			if(maxsOrder == 0) {
+				int selectRestep = sqlSession.selectOne("selectRestep", bDto);
+				int re_level = bDto.getRe_level() + 1;
+				
+				bDto.setRe_step(selectRestep);
+				bDto.setRe_level(re_level);
+				
+				result = sqlSession.insert("createBoard",bDto);
+			} else {
+				maxsOrder = sqlSession.selectOne("selectBoardReplyMaxOrder",bDto);
+				bDto.setRe_step(maxsOrder);
+				
+				sqlSession.update("replyRestepUpdate",bDto);
+				bDto.setRe_step(bDto.getRe_step() + 1);
+				
+				int re_level = bDto.getRe_level() + 1;
+				bDto.setRe_level(re_level);
+				
+				result = sqlSession.insert("createBoard", bDto);
+				sqlSession.commit();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

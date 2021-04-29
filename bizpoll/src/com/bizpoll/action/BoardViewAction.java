@@ -17,7 +17,6 @@ public class BoardViewAction implements Action{
 		String url = "board/boardView.jsp";
 		
 		int articleno = Integer.parseInt(request.getParameter("articleno"));
-		System.out.println("articleno = " + articleno);
 		BoardDAO bDao = BoardDAO.getInstance();
 		BoardDTO selBoardView = bDao.selBoardView(articleno);
 		System.out.println("BoardDTO toString = " + selBoardView.toString());

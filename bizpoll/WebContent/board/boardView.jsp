@@ -7,19 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>글보기</title>
-<style type="text/css">
-	#tr_btn_modify {
-		display: none;
-	}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
-	function deletePost() {
+
+	$(document).ready(function(){
+		if(document.frm.user.value != document.frm.postUser.value){
+			$("#modifybtn").hide();
+			$("#deletebtn").hide();
+		}
+	});
+
+	function deletePost(url, articleno) {
 		var user = document.frm.user.value;
 		var postUser = document.frm.postUser.value;
+		
 		if (user == postUser){
-			document.frm.action = "delete.bizpoll";
+			document.frm.action = url;
 			document.frm.submit();
 		} else{
 			alert("글을 작성한 회원이 아닙니다.");
@@ -50,8 +54,27 @@
 	}
 	// 숙제
 	function fn_remove_article(url, articleno) {
-		document.frm.action = url;
-		document.frm.submit();
+		
+		var user = document.frm.user.value;
+		var postUser = document.frm.postUser.value;
+		
+		
+		var form = document.createElement("form");
+		var parentNoInput = document.createElement("input");
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		
+		parentNoInput = document.createElement("input");
+		parentNoInput.setAttribute("type", "hidden");
+		parentNoInput.setAttribute("name", "articleno");
+		parentNoInput.setAttribute("value", articleno);
+		form.appendChild(parentNoInput);
+		document.body.appendChild(form);
+		
+		if (user != postUser){
+			alert("글을 작성한 회원이 아닙니다.");
+		}
+		form.submit();
 	}
 	
 	function fn_reply_form(url, articleno, ref, re_step, re_level) {
@@ -64,25 +87,25 @@
 		parentNoInput = document.createElement("input");
 		parentNoInput.setAttribute("type", "hidden");
 		parentNoInput.setAttribute("name", "articleno");
-		parentNoInput.setAttribute("value", "articleno");
+		parentNoInput.setAttribute("value", articleno);
 		form.appendChild(parentNoInput);
 		
 		parentNoInput = document.createElement("input");
 		parentNoInput.setAttribute("type", "hidden");
 		parentNoInput.setAttribute("name", "ref");
-		parentNoInput.setAttribute("value", "ref");
+		parentNoInput.setAttribute("value", ref);
 		form.appendChild(parentNoInput);
 		
 		parentNoInput = document.createElement("input");
 		parentNoInput.setAttribute("type", "hidden");
 		parentNoInput.setAttribute("name", "re_step");
-		parentNoInput.setAttribute("value", "re_step");
+		parentNoInput.setAttribute("value", re_step);
 		form.appendChild(parentNoInput);
 		
 		parentNoInput = document.createElement("input");
 		parentNoInput.setAttribute("type", "hidden");
 		parentNoInput.setAttribute("name", "re_level");
-		parentNoInput.setAttribute("value", "re_level");
+		parentNoInput.setAttribute("value", re_level);
 		form.appendChild(parentNoInput);
 		
 		document.body.appendChild(form);
@@ -110,7 +133,7 @@
 				<tr>
 					<td width="150" align="center" bgcolor="#ff9933">글번호</td>
 					<td><input type="text" value="${selBoardView.articleno}" disabled="disabled"></td>
-					<td><input type="hidden" value="${selBoardView.articleno}" name="articleno"></td>
+					<%-- <td><input type="hidden" value="${selBoardView.articleno}" name="articleno"></td> --%>
 				</tr>
 				<tr>
 					<td width="150" align="center" bgcolor="#ff9933">작성자아이디</td>
@@ -154,14 +177,14 @@
 				</tr>
 				<tr id="tr_btn">
 					<td colspan="2" align="center"> 
-						<input type="button" value="수정하기" onclick="fn_enable(this.form);">
-						<input type="button" value="삭제하기" onclick="fn_remove_article('removeBoard.bizpoll',${selBoardView.articleno});">
+						<input type="button" value="수정하기" onclick="fn_enable(this.form);" id="modifybtn">
+						<input type="button" value="삭제하기" onclick="fn_remove_article('delete.bizpoll',${selBoardView.articleno});" id="deletebtn">
 						<input type="button" value="목록보기" onclick="backToList(this.form);">
-						<input type="button" value="댓글쓰기" onclick="fn_reply_form('boardReplyForm.bizpoll'), ${selBoardView.articleno}, ${selBoardView.ref}, ${selBoardView.re_step}, ${selBoardView.re_level}">
+						<input type="button" value="댓글쓰기" onclick="fn_reply_form('boardReplyForm.bizpoll', ${selBoardView.articleno}, ${selBoardView.ref}, ${selBoardView.re_step}, ${selBoardView.re_level});">
 					</td>
 				</tr>
 			</table>
-		<input type="button" value="삭제" onclick="deletePost();">
+		<!-- <input type="button" value="삭제" onclick="deletePost();"> -->
 	</form>
 <%@ include file="../footer.jsp" %>
 </body>

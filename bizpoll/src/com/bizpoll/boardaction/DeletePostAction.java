@@ -17,16 +17,21 @@ public class DeletePostAction implements Action{
 			throws ServletException, IOException {
 		String url = "member/login_fail.jsp";
 		
-		String userid = request.getParameter("delId");
-		String userarticle = request.getParameter("artino");
-		System.out.println("userid = " + userid);
-		BoardDAO bDao = BoardDAO.getInstance();
-		
-		int result = bDao.boardDel(userid, userarticle);
-		System.out.println("result = " + result);
-		if (result > 0) {
-			url = "board/del_suc.jsp";
+		try {
+			int articleno = Integer.parseInt(request.getParameter("artino"));
+			
+			System.out.println("delpostaction artino >> " + articleno);
+			
+			BoardDAO bDao = BoardDAO.getInstance();
+			int result = bDao.boardDel(articleno);
+			if(result > 0) {
+				url = "board/del_suc.jsp";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);

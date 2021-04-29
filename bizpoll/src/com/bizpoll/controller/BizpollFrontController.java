@@ -15,6 +15,8 @@ import com.bizpoll.action.BoardAddAction;
 import com.bizpoll.action.BoardFormAction;
 import com.bizpoll.action.BoardListAction;
 import com.bizpoll.action.BoardModifyAction;
+import com.bizpoll.action.BoardReplyAction;
+import com.bizpoll.action.BoardReplyFormAction;
 import com.bizpoll.action.BoardViewAction;
 import com.bizpoll.action.ContractAction;
 import com.bizpoll.action.DetailAction;
@@ -176,6 +178,17 @@ public class BizpollFrontController extends HttpServlet {
 			action = new BoardModifyAction();
 			foward = action.excute(request, response);
 		}
+		
+		// ---------------------- 게시판 댓글 --------------------------
+		if (command.equals("/boardReplyForm.bizpoll")) {
+			action = new BoardReplyFormAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/boardReply.bizpoll")) {
+			action = new BoardReplyAction();
+			foward = action.excute(request, response);
+		}
+		
 		// ---------------------- myBatis 작업 --------------------------
 		
 		// 로그인
