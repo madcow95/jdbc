@@ -3,9 +3,15 @@ package com.bizpoll.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.bizpoll.common.DBManager;
 import com.bizpoll.dto.MemberDTO;
+import com.bizpoll.mybatis.SqlMapConfig;
 
 public class MemberDAO {
 	
@@ -19,8 +25,59 @@ public class MemberDAO {
 		return instance;
 	}
 	
+	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
+	SqlSession sqlSession;
+	
+	public int batisJoin(MemberDTO mDto) {
+		
+		sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try {
+			result = sqlSession.insert("joinList", mDto);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
 	public MemberDTO getMember(String userId) {
 		
+		MemberDTO mDto = null;
+		
+		String sql = "SELECT * "
+				   + "FROM member "
+				   + "WHERE id=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mDto = new MemberDTO();
+				mDto.setId(rs.getString("id"));
+				mDto.setPwd(rs.getString("pwd"));
+				mDto.setName(rs.getString("name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return mDto;
+	}
+	
+public ArrayList<MemberDTO> getMember2(String userId) {
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		MemberDTO mDto = null;
 		
 		String sql = "SELECT * "
@@ -43,13 +100,14 @@ public class MemberDAO {
 				mDto.setName(rs.getString("name"));
 				mDto.setId(rs.getString("id"));
 				mDto.setPwd(rs.getString("pwd"));
+				list.add(mDto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		return mDto;
+		return list;
 	}
 	
 	public void deleteMember(String id, String pwd) {
@@ -158,10 +216,59 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public void update(String pwd) {
+	public void update(String id, String pwd, String changePwd) {
 		String sql = "UPDATE member " + 
 				"SET pwd = ? " + 
 				"WHERE id = ? " + 
 				"AND pwd = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, changePwd);
+			pstmt.setString(2, id);
+			pstmt.setString(3, pwd);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+	}
+	
+	public List<MemberDTO> mybatisLogin(){
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		List<MemberDTO> memberList = null;
+		
+		try {
+			memberList = sqlSession.selectList("loginList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return memberList;
+	}
+	
+	public List<MemberDTO> findId()	{
+		
+		sqlSession = sqlSessionFactory.openSession();
+		
+		List<MemberDTO> memList = null;
+		
+		try {
+			memList = sqlSession.selectList("findIdList");
+			System.out.println("memList size = " + memList.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return memList;
 	}
 }

@@ -37,7 +37,7 @@
 						</li>
 						<li><a href="logout.bizpoll" onclick="location='index.bizpoll'">LOGOUT</a></li>
 						<li>|</li>
-						<li><a href="delete.bizpoll" onclick="location='index.bizpoll'">회원탈퇴</a></li>
+						<li><a href="#" onclick="location='index.bizpoll'">회원탈퇴</a></li>
 						<li>|</li>
 						<li><a href="update.bizpoll">MY PAGE</a></li>
 					</c:otherwise>
@@ -49,7 +49,7 @@
 				<li>|</li>
 				<li><a>APP</a></li>
 				<li>|</li>
-				<li><a href="boardList.bizpoll">board</a></li>
+				<li><a href="board_list.bizpoll">board</a></li>
 			</ul>
 		</nav>
 	</div>

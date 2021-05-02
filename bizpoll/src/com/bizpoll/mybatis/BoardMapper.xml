@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bizpoll.mybatis.BoardMapper.xml">
+	<select id="selBoardList" resultType="com.bizpoll.dto.BoardDTO">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM RNUM,
+            			 a.*
+      			  FROM (SELECT *
+            			FROM board
+            			WHERE articleno > 0
+            			ORDER BY ref DESC, re_step ASC)a)
+			WHERE RNUM BETWEEN 1 AND 10
+		]]> 
+	</select>
+	
+	<select id="getNewArticleNo" resultType="Integer">
+		<![CDATA[
+			SELECT max(articleno)
+			FROM board
+		]]>
+	</select>
+	
+	<insert id="creatBoard" parameterType="com.bizpoll.dto.BoardDTO">
+	<![CDATA[
+		INSERT INTO board(articleno, subject, content, reg_date, ref, re_step, re_level, filename, id)
+		VALUES(board_seq.nextval, #{subject}, #{content}, sysdate, #{ref}, #{re_step}, #{re_level}, #{filename}, #{id})
+		]]>
+	</insert>	
+									<!-- Integer Type으로 값을 넘겨받고   BoardDTO에 나온값을 넘겨준다. -->
+	<select id="selectBoardView" parameterType="Integer" resultType="com.bizpoll.dto.BoardDTO"> <!-- 클래스로부터 어떤값을 받기위할때 타입 parameterType / 넘겨줄때는 resultType -->
+		SELECT *
+		FROM board
+		WHERE articleno=#{articleno}
+		<!-- BoardDAO class에서 selectone의 object값을 조건문에 넣어주면 되는건가? -->
+	</select>
+	
+	<update id="modifyBoard" parameterType="com.bizpoll.dto.BoardDTO">
+		UPDATE board
+		SET	subject = #{subject}, content = #{content}
+		<if test="filename != null">
+			, filename = #{filename}
+		</if>
+		WHERE articleno = #{articleno}
+	</update>
+	
+	<select id="selectBoardReplyMaxOrder" resultType="Integer" parameterType="com.bizpoll.dto.BoardDTO"> <!-- resulttype : mapper를 불렀을 때 왼쪽의 타입, parameterType : mapper를 불렀을 때 오른쪽의 타입 -->
+		<![CDATA[
+			SELECT NVL(MAX(re_step), 0)
+			FROM board
+			WHERE ref = #{ref}
+			AND re_step > #{re_step}
+			AND re_level <= #{re_level}
+		]]>
+	</select>
+	
+	<select id="selectRestep" resultType="int" parameterType="com.bizpoll.dto.BoardDTO">
+		SELECT NVL(MAX(re_step),0) + 1
+		FROM board
+		WHERE ref = #{ref}
+	</select>
+	
+	<update id="replyRestepUpdate" parameterType="Integer">
+		<![CDATA[
+			UPDATE board
+			SET re_step = re_step + 1
+			WHERE ref = #{ref}
+			AND re_step > #{re_step}
+		]]>
+	</update>
+</mapper>

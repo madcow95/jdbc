@@ -16,18 +16,13 @@ function go_save() {
 	if (document.frm.id.value == null) {
 		alert("아이디를 입력하지 않았습니다.");
 		document.frm.id.focus();
-	} else if (document.frm.id.value != document.frm.reid.value) {
-		alert("중복체크를 하지 않았습니다.");
 	} else if (document.frm.pwd.value == null) {
 		alert("비밀번호를 입력하지 않았습니다.");
 		document.frm.pwd.focus();
 	} else if (document.frm.pwd.value != document.frm.pwdCheck.value) {
 		alert("비밀번호가 일치하지 않습니다.");
 		document.frm.pwdCheck.focus();
-	} else if (document.frm.name.value = null) {
-		alert("이름을 입력해주세요");
-		document.frm.name.focus();
-	} else if (document.frm.email.value == null) {
+	}else if (document.frm.email.value == null) {
 		alert("이메일을 입력해주세요.");
 		document.frm.email.focus();
 	} else {
@@ -55,12 +50,13 @@ function idcheck() {
 	window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=" + w + ", height=" + h + ", top=" + topPosition + ", left=" + leftPosition); // window.open 자식창으로 띄워라 blank : 새로띄우는 창 이름
 }
 
-function deleteID() {
-	
-}
-
 function post_zip() {
 	var url = "find_zip_num.bizpoll";
 	
 	window.open(url, "_blank_1", "toolbar=no, menubar=no scrollbars=yes, resizable=no width=500, height=300, top=300, left=300");
 }
+
+/*function deletePost() {
+	var id = document.frm.user.value();
+	alert("id");
+}*/

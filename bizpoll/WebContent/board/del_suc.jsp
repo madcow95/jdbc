@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<script type="text/javascript">
+	alert("삭제완료!");
+	location.href="board_list.bizpoll"
+</script>
 </body>
 </html>

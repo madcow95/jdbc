@@ -93,9 +93,12 @@ public class MemberDTO implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", address=" + address
-				+ ", phone=" + phone + ", useyn=" + useyn + ", indate=" + indate + ", zip_num=" + zip_num + "]";
+		if(id != null) {
+			return id;
+		} else if(name != null) {
+			return name;
+		}
+		return null;
 	}
-	
 	
 }

@@ -1,40 +1,31 @@
-package com.bizpoll.action;
+package com.bizpoll.findaction;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.bizpoll.action.Action;
+import com.bizpoll.action.ActionFoward;
 import com.bizpoll.dao.MemberDAO;
 import com.bizpoll.dto.MemberDTO;
 
-public class LoginAction_Detail implements Action {
+public class FindIdActionDetail implements Action {
 
 	@Override
 	public ActionFoward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		String url = "member/login_fail.jsp";
-
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
-		HttpSession session = request.getSession();
-
 		MemberDAO mDao = MemberDAO.getInstance();
-		MemberDTO mDto = mDao.getMember(userId);
-		if (mDto != null) {
-			if (mDto.getPwd().equals(userPwd)) {
-				session.removeAttribute("userId");
-				session.setAttribute("userId", mDto);
-				url = "index.bizpoll";
-			}
-		}
+		List<MemberDTO> memList = mDao.findId();
+		request.setAttribute("memList", memList);
+		
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);
-
 		return forward;
 	}
 

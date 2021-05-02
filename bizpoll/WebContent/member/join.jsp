@@ -53,7 +53,7 @@
 			<label>Retype Password</label>
 			<input type="password" name="pwdCheck"><br> <!-- 비밀번호 위에 입력한 값과 같은지 체크 -->
 			<label>Name</label>
-			<input type="text" name="irum"><br>
+			<input type="text" name="name"><br>
 			<label>Email</label>
 			<input type="text" name="email"><br>
 		</fieldset>
