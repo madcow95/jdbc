@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-
-import javax.websocket.Session;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -26,20 +25,64 @@ public class BoardDAO {
 	SqlSession sqlSession;
 	
 	
-	public List<BoardDTO> boardList() {
+	/*
+	 * public List<BoardDTO> boardList(Map<String, Integer> paginMap) {
+	 * 
+	 * sqlSession = sqlSessionFactory.openSession();
+	 * 
+	 * List<BoardDTO> boardList = null;
+	 * 
+	 * try {
+	 *  boardList = sqlSession.selectList("selBoardList",paginMap); }
+	 *   catch (Exception e) { 
+	 *   e.printStackTrace(); 
+	 *   } finally { 
+	 *   sqlSession.close(); 
+	 *   } 
+	 *   return boardList; 
+	 *   }
+	 */
+	
+	public List<BoardDTO> boardList(Map<String, Object> searchType) {
 		
 		sqlSession = sqlSessionFactory.openSession();
 		
 		List<BoardDTO> boardList = null;
 		
 		try {
-			boardList = sqlSession.selectList("selBoardList");
+			boardList = sqlSession.selectList("selBoardList",searchType);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();
 		}
 		return boardList;
+	}
+	
+//	public int boardListAllCnt() {
+//		sqlSession = sqlSessionFactory.openSession();
+//		int boardListAllCnt = 0;
+//		try {
+//			boardListAllCnt = sqlSession.selectOne("boardListAllCnt");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			sqlSession.close();
+//		}
+//		return boardListAllCnt;
+//	}
+	
+	public int boardListAllCnt(Map<String, Object> boardParm) {
+		sqlSession = sqlSessionFactory.openSession();
+		int boardListAllCnt = 0;
+		try {
+			boardListAllCnt = sqlSession.selectOne("boardListAllCnt", boardParm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return boardListAllCnt;
 	}
 
 	public Integer getNewArticleNo() {
@@ -49,7 +92,6 @@ public class BoardDAO {
 		
 		try {
 			articleNo = sqlSession.selectOne("getNewArticleNo");
-			System.out.println("articleNo = " + articleNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -177,10 +219,11 @@ public class BoardDAO {
 				bDto.setRe_step(selectRestep);
 				bDto.setRe_level(re_level);
 				
-				result = sqlSession.insert("createBoard",bDto);
+				result = sqlSession.insert("creatBoard",bDto);
+				sqlSession.commit();
 			} else {
-				maxsOrder = sqlSession.selectOne("selectBoardReplyMaxOrder",bDto);
-				bDto.setRe_step(maxsOrder);
+//				maxsOrder = sqlSession.selectOne("selectBoardReplyMaxOrder",bDto);
+//				bDto.setRe_step(maxsOrder);
 				
 				sqlSession.update("replyRestepUpdate",bDto);
 				bDto.setRe_step(bDto.getRe_step() + 1);
@@ -188,7 +231,7 @@ public class BoardDAO {
 				int re_level = bDto.getRe_level() + 1;
 				bDto.setRe_level(re_level);
 				
-				result = sqlSession.insert("createBoard", bDto);
+				result = sqlSession.insert("creatBoard", bDto);
 				sqlSession.commit();
 			}
 		} catch (Exception e) {
@@ -197,5 +240,25 @@ public class BoardDAO {
 			sqlSession.close();
 		}
 		return result;
+	}
+	
+	/*
+	 * public List<BoardDTO> selAllBoardList(){ List<BoardDTO> boardList = null;
+	 * sqlSession = sqlSessionFactory.openSession(); try {
+	 * 
+	 * } catch (Exception e) { // TODO: handle exception } return boardList; }
+	 */
+	public void readcount(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession();
+		try {
+			System.out.println("bDto articleno > "+bDto.getArticleno());
+			System.out.println("bDto read > "+bDto.getReadcount());
+			sqlSession.update("readcount",bDto);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
 	}
 }

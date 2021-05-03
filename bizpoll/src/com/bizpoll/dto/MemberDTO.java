@@ -91,14 +91,12 @@ public class MemberDTO implements Serializable{
 	public void setZip_num(String zip_num) {
 		this.zip_num = zip_num;
 	}
+
 	@Override
 	public String toString() {
-		if(id != null) {
-			return id;
-		} else if(name != null) {
-			return name;
-		}
-		return null;
+		return "MemberDTO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", address=" + address
+				+ ", phone=" + phone + ", useyn=" + useyn + ", indate=" + indate + ", zip_num=" + zip_num + "]";
 	}
+	
 	
 }

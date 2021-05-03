@@ -19,9 +19,9 @@ public class MybatisLoginAction implements Action{
 		String url = "member/mybatislogin.jsp";
 		MemberDAO mDao = MemberDAO.getInstance();
 		
-		List<MemberDTO> memList = mDao.mybatisLogin();
-		System.out.println(memList.toString());
-		request.setAttribute("memList", memList);
+		/* List<MemberDTO> memList = mDao.mybatisLogin(); */
+//		System.out.println(memList.toString());
+//		request.setAttribute("memList", memList);
 		ActionFoward forward = new ActionFoward();
 		forward.setPath(url);
 		forward.setRedirect(false);

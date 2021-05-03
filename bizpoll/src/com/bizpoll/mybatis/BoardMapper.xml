@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bizpoll.mybatis.BoardMapper.xml">
-	<select id="selBoardList" resultType="com.bizpoll.dto.BoardDTO">
+	<select id="selBoardList" resultType="com.bizpoll.dto.BoardDTO" parameterType="MAP">
 		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM RNUM,
@@ -12,16 +12,30 @@
       			  FROM (SELECT *
             			FROM board
             			WHERE articleno > 0
+        ]]> 
+        	<include refid="search"></include>
+        <![CDATA[
             			ORDER BY ref DESC, re_step ASC)a)
-			WHERE RNUM BETWEEN 1 AND 10
+			WHERE RNUM BETWEEN (#{section}-1)*100 + (#{pageNum}-1)*10+1 AND (#{section}-1)*100 + #{pageNum}*10
 		]]> 
+	</select>
+	
+	<!-- <select id="boardListAllCnt" resultType="Integer">
+		SELECT COUNT(articleno)
+		FROM board
+	</select> -->
+	<select id="boardListAllCnt" resultType="Integer">
+		SELECT COUNT(articleno)
+		FROM board
 	</select>
 	
 	<select id="getNewArticleNo" resultType="Integer">
 		<![CDATA[
 			SELECT max(articleno)
 			FROM board
+			WHERE articleno > 0
 		]]>
+		<include refid="search"></include>
 	</select>
 	
 	<insert id="creatBoard" parameterType="com.bizpoll.dto.BoardDTO">
@@ -71,4 +85,45 @@
 			AND re_step > #{re_step}
 		]]>
 	</update>
+	
+	<update id="readcount" parameterType="com.bizpoll.dto.BoardDTO">
+		UPDATE board
+		SET readcount = #{readcount}+1
+		WHERE articleno = #{articleno}
+	</update>
+	
+<sql id="search">
+	<if test="searchType != null">
+   		<if test="searchType == 't'.toString">
+   			AND subject LIKE '%'||#{searchKeyword}||'%'
+   		</if>
+   	</if>
+  	<if test="searchType != null">
+  		<if test="searchType == 'c'.toString">
+  			AND content LIKE '%'||#{searchKeyword}||'%'
+  		</if>
+  	</if>
+  	<if test="searchType != null">
+  		<if test="searchType == 'w'.toString">
+  			AND id LIKE '%'||#{searchKeyword}||'%'
+  		</if>
+  	</if>
+  	<if test="searchType != null">
+  		<if test="searchType == 'tc'.toString">
+  			AND (subject LIKE '%'||#{searchKeyword}||'%' OR content LIKE '%'||#{searchKeyword}||'%')
+  		</if>
+  	</if>
+  	<if test="searchType != null">
+  		<if test="searchType == 'cw'.toString">
+  			AND (content LIKE '%'||#{searchKeyword}||'%' OR id LIKE '%'||#{searchKeyword}||'%')
+  		</if>
+  	</if>
+  	<if test="searchType != null">
+  		<if test="searchType == 'tcw'.toString">
+  			AND (subject LIKE '%'||#{searchKeyword}||'%' 
+  			OR content LIKE '%'||#{searchKeyword}||'%' 
+  			OR id LIKE '%'||#{searchKeyword}||'%')
+  		</if>
+  	</if>
+</sql>
 </mapper>

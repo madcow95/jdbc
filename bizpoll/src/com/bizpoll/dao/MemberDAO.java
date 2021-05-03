@@ -44,7 +44,6 @@ public class MemberDAO {
 	}
 	
 	public MemberDTO getMember(String userId) {
-		
 		MemberDTO mDto = null;
 		
 		String sql = "SELECT * "
@@ -60,6 +59,7 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, userId);
+			System.out.println("test id > " + userId);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -67,6 +67,11 @@ public class MemberDAO {
 				mDto.setId(rs.getString("id"));
 				mDto.setPwd(rs.getString("pwd"));
 				mDto.setName(rs.getString("name"));
+				mDto.setEmail(rs.getString("email"));
+				mDto.setAddress(rs.getString("address"));
+				mDto.setPhone(rs.getString("phone"));
+				mDto.setZip_num(rs.getString("zip_num"));
+				System.out.println("dao DTO > " + mDto.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,20 +244,19 @@ public ArrayList<MemberDTO> getMember2(String userId) {
 		}
 	}
 	
-	public List<MemberDTO> mybatisLogin(){
+	public MemberDTO mybatisLogin(String id){
 		
 		sqlSession = sqlSessionFactory.openSession();
-		
-		List<MemberDTO> memberList = null;
+		MemberDTO mDto = null;
 		
 		try {
-			memberList = sqlSession.selectList("loginList");
+			mDto = sqlSession.selectOne("userId",id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();
 		}
-		return memberList;
+		return mDto;
 	}
 	
 	public List<MemberDTO> findId()	{

@@ -18,14 +18,15 @@ public class LoginAction_Detail implements Action {
 
 		String url = "member/login_fail.jsp";
 
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
 		HttpSession session = request.getSession();
-
+		System.out.println("login id > " + id);
+		System.out.println("login pwd > " + pwd);
 		MemberDAO mDao = MemberDAO.getInstance();
-		MemberDTO mDto = mDao.getMember(userId);
+		MemberDTO mDto = mDao.getMember(id);
 		if (mDto != null) {
-			if (mDto.getPwd().equals(userPwd)) {
+			if (mDto.getPwd().equals(pwd)) {
 				session.removeAttribute("userId");
 				session.setAttribute("userId", mDto);
 				url = "index.bizpoll";

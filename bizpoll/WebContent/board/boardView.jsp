@@ -16,6 +16,8 @@
 			$("#modifybtn").hide();
 			$("#deletebtn").hide();
 		}
+		/* var count = document.frm.readcount.value;
+		parseInt(count) += 1; */
 	});
 
 	function deletePost(url, articleno) {
@@ -43,9 +45,9 @@
 		document.getElementById("tr_btn").style.display = "none";
 	}
 	
-	function backToList(obj) {
-		obj.action = "board_list.bizpoll";
-		obj.submit();
+	function backToList() {
+		document.frm.action="count.bizpoll?readcount="+document.frm.readcount.value+"&articleno="+document.frm.articleno.value;
+		document.frm.submit();
 	}
 	
 	function fn_modify_article(obj) {
@@ -133,7 +135,7 @@
 				<tr>
 					<td width="150" align="center" bgcolor="#ff9933">글번호</td>
 					<td><input type="text" value="${selBoardView.articleno}" disabled="disabled"></td>
-					<%-- <td><input type="hidden" value="${selBoardView.articleno}" name="articleno"></td> --%>
+					<td><input type="hidden" value="${selBoardView.articleno}" name="articleno"></td>
 				</tr>
 				<tr>
 					<td width="150" align="center" bgcolor="#ff9933">작성자아이디</td>
@@ -177,9 +179,10 @@
 				</tr>
 				<tr id="tr_btn">
 					<td colspan="2" align="center"> 
+						<input type="hidden"  name="readcount" value="${selBoardView.readcount}">
 						<input type="button" value="수정하기" onclick="fn_enable(this.form);" id="modifybtn">
 						<input type="button" value="삭제하기" onclick="fn_remove_article('delete.bizpoll',${selBoardView.articleno});" id="deletebtn">
-						<input type="button" value="목록보기" onclick="backToList(this.form);">
+						<input type="button" value="목록보기" onclick="backToList();">
 						<input type="button" value="댓글쓰기" onclick="fn_reply_form('boardReplyForm.bizpoll', ${selBoardView.articleno}, ${selBoardView.ref}, ${selBoardView.re_step}, ${selBoardView.re_level});">
 					</td>
 				</tr>

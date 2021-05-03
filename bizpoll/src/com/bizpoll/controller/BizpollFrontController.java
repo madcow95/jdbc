@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bizpoll.action.Action;
 import com.bizpoll.action.ActionFoward;
 import com.bizpoll.action.BoardAddAction;
+import com.bizpoll.action.BoardCountAction;
 import com.bizpoll.action.BoardFormAction;
 import com.bizpoll.action.BoardListAction;
 import com.bizpoll.action.BoardModifyAction;
@@ -176,6 +177,10 @@ public class BizpollFrontController extends HttpServlet {
 		}
 		else if(command.equals("/boardModify.bizpoll")) {
 			action = new BoardModifyAction();
+			foward = action.excute(request, response);
+		}
+		else if(command.equals("/count.bizpoll")) {
+			action = new BoardCountAction();
 			foward = action.excute(request, response);
 		}
 		

@@ -19,7 +19,6 @@ public class BoardViewAction implements Action{
 		int articleno = Integer.parseInt(request.getParameter("articleno"));
 		BoardDAO bDao = BoardDAO.getInstance();
 		BoardDTO selBoardView = bDao.selBoardView(articleno);
-		System.out.println("BoardDTO toString = " + selBoardView.toString());
 		
 		request.setAttribute("selBoardView", selBoardView);
 		

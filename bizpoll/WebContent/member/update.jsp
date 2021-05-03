@@ -13,19 +13,19 @@
 </head>
 <body>
 	<h1>내 정보 수정</h1>
-	<% String id = session.getAttribute("userId").toString(); 
+	<%-- <% String id = session.getAttribute("userId").toString(); 
 	   MemberDAO mDao = MemberDAO.getInstance();
 	   MemberDTO mDto = mDao.getMember(id);
 	   
 	   String userID = mDto.getId();
 	   String userName = mDto.getName();
-	%>
+	%> --%>
 	
 	<form action="update_detail.bizpoll" method="post" name="frm">
 		<label>ID</label>
-		<input type="text" name="id" value="<%=userID%>" readonly="readonly"><br>
+		<input type="text" name="id" value="${sessionScope.userId.id }" readonly="readonly"><br>
 		<label>Name</label>
-		<input type="text" name="name" value="<%=userName%>" readonly="readonly"><br>
+		<input type="text" name="name" value="${sessionScope.userId.name }" readonly="readonly"><br>
 		<label>Password</label>
 		<input type="password" name="pwd"><br>
 		<label>Retype Password</label>

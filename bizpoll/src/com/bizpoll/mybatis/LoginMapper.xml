@@ -4,11 +4,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bizpoll.mybatis.LoginMapper.xml">
-	<select id="loginList" resultType="com.bizpoll.dto.MemberDTO">
+	<select id="loginList" resultType="com.bizpoll.dto.MemberDTO" parameterType="String">
 		<![CDATA[
 			SELECT *
 			FROM    member
-			WHERE id = 'test'
+			WHERE id = #{id}
 		]]> 
 	</select>
 </mapper>

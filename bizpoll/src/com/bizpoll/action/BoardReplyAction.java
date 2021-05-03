@@ -32,7 +32,6 @@ public class BoardReplyAction implements Action{
 			String fileName = boardMap.get("filename");
 			String savePath = boardMap.get("savePath");
 			String id = boardMap.get("id");
-			System.out.println("bREAc parentno >> " + parentNo);
 			int ref = parentNo;
 			int re_step = Integer.parseInt(boardMap.get("re_step"));
 			int re_level = Integer.parseInt(boardMap.get("re_level"));
@@ -47,7 +46,7 @@ public class BoardReplyAction implements Action{
 			
 			int result = 0;
 			result = bDao.replyReStepUpdate(bDto);
-			result = bDao.create(bDto);
+//			result = bDao.create(bDto);
 			
 			if (fileName != null && fileName.length() != 0) {
 				File srcFile = new File(savePath + "\\" + "temp" + "\\" + fileName);
