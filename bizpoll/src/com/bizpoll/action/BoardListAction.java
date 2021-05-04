@@ -26,8 +26,6 @@ public class BoardListAction implements Action{
 		
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
-		System.out.println("searchType" + searchType);
-		System.out.println("searchKeyword" + searchKeyword);
 		int section = Integer.parseInt((_section == null) ? "1" : _section);
 		int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
 		Map<String, Object> pagingMap = new HashMap<String, Object>();
